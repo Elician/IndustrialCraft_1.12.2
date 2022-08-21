@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "Forge"
+            url = "https://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+repositories {
+	flatDir {
+		dirs 'lib'
+	}
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+version = "2_2.8.221_ex112"
+group= ""
+archivesBaseName = "industrialcraft"
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+	sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+	version = "1.12.2-14.23.5.2847"
+	runDir = "eclipse"
+        mappings = "stable_60"
+}
+
+dependencies {
+	compile name: archivesBaseName + '-' + version + '-dev'
+}
+
+jar {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	from zipTree('lib/' + archivesBaseName + '-' + version + '.jar')
+}
