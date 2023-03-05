@@ -41,10 +41,10 @@ minecraft {
 }
 
 dependencies {
-	compile name: archivesBaseName + '-' + version + '-dev'
+	compileOnly name: archivesBaseName + '-' + version + '-dev'
 }
 
 jar {
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-	from zipTree('lib/' + archivesBaseName + '-' + version + '.jar')
+	from zipTree('lib/' + archivesBaseName + '-' + version + '-dev.jar')
 }
