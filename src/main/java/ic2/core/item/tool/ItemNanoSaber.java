@@ -37,7 +37,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -50,8 +49,8 @@ public class ItemNanoSaber extends ItemElectricTool {
 
     public ItemNanoSaber() {
         super(ItemName.nano_saber, 10, HarvestLevel.Diamond, EnumSet.of(ToolClass.Sword));
-        this.maxCharge = 160000;
-        this.transferLimit = 500;
+        this.maxCharge = 200000;
+        this.transferLimit = 256;
         this.tier = 2;
     }
 
@@ -63,8 +62,8 @@ public class ItemNanoSaber extends ItemElectricTool {
                 return ItemIC2.getModelLocation(name, ItemNanoSaber.isActive(stack) ? "active" : null);
             }
         });
-        ModelBakery.registerItemVariants(this, new ResourceLocation[]{ItemIC2.getModelLocation(name, (String)null)});
-        ModelBakery.registerItemVariants(this, new ResourceLocation[]{ItemIC2.getModelLocation(name, "active")});
+        ModelBakery.registerItemVariants(this, ItemIC2.getModelLocation(name, null));
+        ModelBakery.registerItemVariants(this, ItemIC2.getModelLocation(name, "active"));
     }
 
     public float getDestroySpeed(ItemStack stack, IBlockState state) {
