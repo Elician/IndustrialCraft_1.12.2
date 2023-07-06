@@ -6,6 +6,8 @@
 package ic2.core.item.armor;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import cofh.redstoneflux.util.EnergyContainerItemWrapper;
+import com.google.common.collect.Iterables;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.IItemHudInfo;
@@ -14,19 +16,25 @@ import ic2.core.init.Localization;
 import ic2.core.item.BaseElectricItem;
 import ic2.core.item.ElectricItemManager;
 import ic2.core.item.IPseudoDamageItem;
+import ic2.core.item.utils.EnergyHelper;
 import ic2.core.ref.ItemName;
 import ic2.core.util.LogCategory;
+
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyContainerItem, ISpecialArmor, IPseudoDamageItem, IElectricItem, IItemHudInfo {
   protected final double maxCharge;
@@ -43,20 +51,67 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
     this.setNoRepair();
   }
 
-  public int receiveEnergy(ItemStack var1, int var2, boolean var3) {
-
+  public ItemArmorElectric(ItemName name, ArmorMaterial armorMaterial, String armorName, EntityEquipmentSlot armorType, double maxCharge, double transferLimit, int tier) {
+    super(name, armorMaterial, armorName, armorType, null);
+    this.maxCharge = maxCharge;
+    this.tier = tier;
+    this.transferLimit = transferLimit;
+    this.func_77656_e(27);
+    this.func_77625_d(1);
+    this.setNoRepair();
   }
 
-  public int extractEnergy(ItemStack var1, int var2, boolean var3) {
+  public int receiveEnergy(ItemStack stack, int maxReceive, boolean simulate) {
+    double energyReceived = Math.min(this.maxCharge - this.getEnergyStored(stack), maxReceive);
 
+    if (!simulate) {
+      ElectricItem.manager.charge(stack, energyReceived, maxReceive, true, false);
+    }
+
+    return (int) energyReceived;
   }
 
-  public int getEnergyStored(ItemStack var1) {
+  public int extractEnergy(ItemStack stack, int maxReceive, boolean simulate) {
+    double energyCost = Math.min(this.getEnergyStored(stack), maxReceive);
 
+    if (!simulate) {
+      ElectricItem.manager.discharge(stack, energyCost, Integer.MAX_VALUE, true, false, false);
+    }
+
+    return (int) energyCost;
   }
 
-  public int getMaxEnergyStored(ItemStack var1) {
-    
+
+  @Override
+  public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean isSelected) {
+
+    Iterable<ItemStack> equipment;
+    EntityPlayer player = (EntityPlayer) entity;
+
+    equipment = Iterables.concat(Arrays.asList(player.inventory.mainInventory, player.inventory.armorInventory, player.inventory.offHandInventory));
+
+    for (ItemStack equipmentStack : equipment) {
+      if (equipmentStack.equals(stack)) {
+        continue;
+      }
+      if (EnergyHelper.isEnergyContainerItem(equipmentStack)) {
+        extractEnergy(stack, ((IEnergyContainerItem) equipmentStack.getItem()).receiveEnergy(equipmentStack, getEnergyStored(stack), false), false);
+      }
+    }
+  }
+
+  @Override
+  public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+
+    return new EnergyContainerItemWrapper(stack, this);
+  }
+
+  public int getEnergyStored(ItemStack stack) {
+    return (int) ElectricItem.manager.getCharge(stack);
+  }
+
+  public int getMaxEnergyStored(ItemStack stack) {
+    return (int) this.getMaxCharge(stack);
   }
 
   public int getItemEnchantability() {
@@ -74,7 +129,7 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
   public List<String> getHudInfo(ItemStack stack, boolean advanced) {
     List<String> info = new LinkedList();
     info.add(ElectricItem.manager.getToolTip(stack));
-    info.add(Localization.translate("ic2.item.tooltip.PowerTier", new Object[]{this.tier}));
+    info.add(Localization.translate("ic2.item.tooltip.PowerTier", this.tier));
     return info;
   }
 
@@ -92,7 +147,7 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
       int energyPerDamage = this.getEnergyPerDamage();
       int damageLimit = Integer.MAX_VALUE;
       if (energyPerDamage > 0) {
-        damageLimit = (int)Math.min((double)damageLimit, 25.0 * ElectricItem.manager.getCharge(armor) / (double)energyPerDamage);
+        damageLimit = (int)Math.min(damageLimit, 25.0 * ElectricItem.manager.getCharge(armor) / (double)energyPerDamage);
       }
 
       return new ISpecialArmor.ArmorProperties(0, absorptionRatio, damageLimit);
@@ -104,7 +159,7 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
   }
 
   public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-    ElectricItem.manager.discharge(stack, (double)(damage * this.getEnergyPerDamage()), Integer.MAX_VALUE, true, false, false);
+    ElectricItem.manager.discharge(stack, (damage * this.getEnergyPerDamage()), Integer.MAX_VALUE, true, false, false);
   }
 
   public boolean canProvideEnergy(ItemStack stack) {

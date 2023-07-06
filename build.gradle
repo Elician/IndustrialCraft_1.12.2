@@ -36,6 +36,7 @@ compileJava {
 
 minecraft {
 	version = "1.12.2-14.23.5.2847"
+//	version = "1.12.2-14.23.4.2705"
 	runDir = "eclipse"
         mappings = "stable_60"
 }

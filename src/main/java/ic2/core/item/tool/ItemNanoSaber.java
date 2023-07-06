@@ -49,19 +49,15 @@ public class ItemNanoSaber extends ItemElectricTool {
 
     public ItemNanoSaber() {
         super(ItemName.nano_saber, 10, HarvestLevel.Diamond, EnumSet.of(ToolClass.Sword));
-        this.maxCharge = 200000;
-        this.transferLimit = 256;
+        this.maxCharge = 1000000;
+        this.transferLimit = 1024;
         this.tier = 2;
     }
 
     @SideOnly(Side.CLIENT)
     public void registerModels(final ItemName name) {
         String activeSuffix = "active";
-        ModelLoader.setCustomMeshDefinition(this, new ItemMeshDefinition() {
-            public ModelResourceLocation func_178113_a(ItemStack stack) {
-                return ItemIC2.getModelLocation(name, ItemNanoSaber.isActive(stack) ? "active" : null);
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(this, stack -> ItemIC2.getModelLocation(name, ItemNanoSaber.isActive(stack) ? "active" : null));
         ModelBakery.registerItemVariants(this, ItemIC2.getModelLocation(name, null));
         ModelBakery.registerItemVariants(this, ItemIC2.getModelLocation(name, "active"));
     }
@@ -83,14 +79,14 @@ public class ItemNanoSaber extends ItemElectricTool {
         if (slot != EntityEquipmentSlot.MAINHAND) {
             return super.getAttributeModifiers(slot, stack);
         } else {
-            int dmg = 4;
+            int dmg = 6;
             if (ElectricItem.manager.canUse(stack, 400.0) && isActive(stack)) {
-                dmg = 20;
+                dmg = 30;
             }
 
             Multimap<String, AttributeModifier> ret = HashMultimap.create();
-            ret.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)this.attackSpeed, 0));
-            ret.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(Item.ATTACK_DAMAGE_MODIFIER, "Tool modifier", (double)dmg, 0));
+            ret.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", this.attackSpeed, 0));
+            ret.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(Item.ATTACK_DAMAGE_MODIFIER, "Tool modifier", dmg, 0));
             return ret;
         }
     }
@@ -114,7 +110,7 @@ public class ItemNanoSaber extends ItemElectricTool {
                         if (armor != null) {
                             double amount = 0.0;
                             if (armor.getItem() instanceof ItemArmorNanoSuit) {
-                                amount = 48000.0;
+                                amount = 32000.0;
                             } else if (armor.getItem() instanceof ItemArmorQuantumSuit) {
                                 amount = 300000.0;
                             }
@@ -122,7 +118,7 @@ public class ItemNanoSaber extends ItemElectricTool {
                             if (amount > 0.0) {
                                 ElectricItem.manager.discharge(armor, amount, this.tier, true, false, false);
                                 if (!ElectricItem.manager.canUse(armor, 1.0)) {
-                                    target.setItemStackToSlot(slot, (ItemStack)null);
+                                    target.setItemStackToSlot(slot, null);
                                 }
 
                                 drainSaber(stack, 2000.0, source);
