@@ -42,6 +42,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -67,11 +68,11 @@ public class TileEntityCanner extends TileEntityStandardMachine<Object, Object, 
     }
 
     public TileEntityCanner() {
-        super(4, 200, 1);
+        super(200, 20000, 1);
         this.mode = TileEntityCanner.Mode.BottleSolid;
         this.inputSlot = new InvSlotProcessableCanner(this, "input", 1);
         this.canInputSlot = new InvSlotConsumableCanner(this, "canInput", 1);
-        this.fluids = (Fluids)this.addComponent(new Fluids(this));
+        this.fluids = this.addComponent(new Fluids(this));
         this.inputTank = this.fluids.addTankInsert("inputTank", 8000);
         this.outputTank = this.fluids.addTankExtract("outputTank", 8000);
     }

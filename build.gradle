@@ -40,8 +40,15 @@ minecraft {
         mappings = "stable_60"
 }
 
+configurations {
+    extraLibs
+}
+
 dependencies {
 	compileOnly name: archivesBaseName + '-' + version + '-dev'
+
+    extraLibs name: "RedstoneFlux-1.12-2.1.1.1-universal"
+    configurations.compile.extendsFrom(configurations.extraLibs)
 }
 
 jar {
