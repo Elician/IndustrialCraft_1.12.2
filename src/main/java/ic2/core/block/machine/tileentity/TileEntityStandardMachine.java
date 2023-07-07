@@ -6,7 +6,6 @@
 package ic2.core.block.machine.tileentity;
 
 import cofh.redstoneflux.api.IEnergyReceiver;
-import cofh.redstoneflux.impl.EnergyStorage;
 import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.api.recipe.MachineRecipeResult;
 import ic2.api.upgrade.IUpgradableBlock;

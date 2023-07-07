@@ -16,8 +16,10 @@ import ic2.core.ref.ItemName;
 import ic2.core.util.StackUtil;
 import ic2.core.util.Util;
 import ic2.core.util.Vector3;
+
 import java.util.LinkedList;
 import java.util.List;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,7 +58,7 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
         super.addInformation(stack, world, list, par4);
         NBTTagCompound nbtData = StackUtil.getOrCreateNbtData(stack);
         String mode;
-        switch(nbtData.getInt("laserSetting")) {
+        switch (nbtData.getInt("laserSetting")) {
             case 0:
                 mode = Localization.translate("ic2.tooltip.mode.mining");
                 break;
@@ -106,30 +108,30 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
             int laserSetting = nbtData.getInt("laserSetting");
             if (IC2.keyboard.isModeSwitchKeyDown(player)) {
                 laserSetting = (laserSetting + 1) % 8;
-                if(laserSetting==6)
-                    laserSetting=7;
+                if (laserSetting == 6)
+                    laserSetting = 7;
                 nbtData.putInt("laserSetting", laserSetting);
                 IC2.platform.messagePlayer(player, "ic2.tooltip.mode", new Object[]{getModeString(laserSetting)});
             } else {
                 int consume = (new int[]{1250, 100, 5000, 0, 2500, 10000, 5000, 7500})[laserSetting];
-                if (!ElectricItem.manager.use(stack, (double)consume, player)) {
+                if (!ElectricItem.manager.use(stack, (double) consume, player)) {
                     return new ActionResult(EnumActionResult.FAIL, stack);
                 }
 
-                switch(laserSetting) {
+                switch (laserSetting) {
                     case 0:
                         if (this.shootLaser(stack, world, player, 1.0F / 0.0f, 5.0F, 2147483647, false, false)) {
-                            ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 0, true);
+                            (IC2.network.get(true)).initiateItemEvent(player, stack, 0, true);
                         }
                         break;
                     case 1:
                         if (this.shootLaser(stack, world, player, 4.0F, 5.0F, 1, false, false)) {
-                            ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 1, true);
+                            (IC2.network.get(true)).initiateItemEvent(player, stack, 1, true);
                         }
                         break;
                     case 2:
                         if (this.shootLaser(stack, world, player, 1.0F / 0.0f, 20.0F, 2147483647, false, false)) {
-                            ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 2, true);
+                            (IC2.network.get(true)).initiateItemEvent(player, stack, 2, true);
                         }
                     case 3:
                     case 7:
@@ -137,14 +139,14 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
                         break;
                     case 4:
                         if (this.shootLaser(stack, world, player, 1.0F / 0.0f, 8.0F, 2147483647, false, true)) {
-                            ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 4, true);
+                            (IC2.network.get(true)).initiateItemEvent(player, stack, 4, true);
                         }
                         break;
                     case 5:
                         Vector3 look = Util.getLook(player);
                         Vector3 right = look.copy().cross(Vector3.UP);
                         if (right.lengthSquared() < 1.0E-4D) {
-                            double angle = Math.toRadians((double)player.rotationYaw) - 1.5707963267948966D;
+                            double angle = Math.toRadians((double) player.rotationYaw) - 1.5707963267948966D;
                             right.set(Math.sin(angle), 0.0D, -Math.cos(angle));
                         } else {
                             right.normalize();
@@ -155,18 +157,18 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
                         double unitDistance = 8.0D;
                         look.scale(8.0D);
 
-                        for(int r = -2; r <= 2; ++r) {
-                            for(int u = -2; u <= 2; ++u) {
-                                Vector3 dir = look.copy().addScaled(right, (double)r).addScaled(up, (double)u).normalize();
+                        for (int r = -2; r <= 2; ++r) {
+                            for (int u = -2; u <= 2; ++u) {
+                                Vector3 dir = look.copy().addScaled(right, (double) r).addScaled(up, (double) u).normalize();
                                 this.shootLaser(stack, world, dir, player, 1.0F / 0.0f, 12.0F, 2147483647, false, false);
                             }
                         }
 
-                        ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 5, true);
+                        ((NetworkManager) IC2.network.get(true)).initiateItemEvent(player, stack, 5, true);
                         break;
                     case 6:
                         if (this.shootLaser(stack, world, player, 1.0F / 0.0f, 12.0F, 2147483647, true, false)) {
-                            ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 6, true);
+                            ((NetworkManager) IC2.network.get(true)).initiateItemEvent(player, stack, 6, true);
                         }
                 }
             }
@@ -190,11 +192,11 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
                         dir.y = 0.0D;
                         dir.normalize();
                         start = Util.getEyePosition(player);
-                        start.y = (double)pos.getY() + 0.5D;
+                        start.y = (double) pos.getY() + 0.5D;
                         start = adjustStartPos(start, dir);
                         if (nbtData.getInt("laserSetting") == 3) {
                             if (this.shootLaser(stack, world, start, dir, player, 1.0F / 0.0f, 5.0F, 2147483647, false, false)) {
-                                ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 3, true);
+                                ((NetworkManager) IC2.network.get(true)).initiateItemEvent(player, stack, 3, true);
                             }
                         } else if (nbtData.getInt("laserSetting") == 7 && this.shootLaser(stack, world, start, dir, player, (float) (1.0F / 0.0), 5.0F, 2147483647, false, false)) {
                             this.shootLaser(stack, world, new Vector3(start.x, start.y - 1.0D, start.z), dir, player, (float) (1.0F / 0.0), 5.0F, 2147483647, false, false);
@@ -217,7 +219,7 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
                                 this.shootLaser(stack, world, new Vector3(start.x, start.y + 1.0D, start.z + 1.0D), dir, player, 1.0F / 0.0f, 5.0F, 2147483647, false, false);
                             }
 
-                            ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 7, true);
+                            ((NetworkManager) IC2.network.get(true)).initiateItemEvent(player, stack, 7, true);
                         }
                     }
                 } else if (nbtData.getInt("laserSetting") == 7) {
@@ -226,8 +228,8 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
                         dir.z = 0.0D;
                         dir.normalize();
                         start = Util.getEyePosition(player);
-                        start.x = (double)pos.getX() + 0.5D;
-                        start.z = (double)pos.getZ() + 0.5D;
+                        start.x = (double) pos.getX() + 0.5D;
+                        start.z = (double) pos.getZ() + 0.5D;
                         start = adjustStartPos(start, dir);
                         if (this.shootLaser(stack, world, start, dir, player, 1.0F / 0.0f, 5.0F, 2147483647, false, false)) {
                             this.shootLaser(stack, world, new Vector3(start.x + 1.0D, start.y, start.z), dir, player, 1.0F / 0.0f, 5.0F, 2147483647, false, false);
@@ -238,7 +240,7 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
                             this.shootLaser(stack, world, new Vector3(start.x - 1.0D, start.y, start.z + 1.0D), dir, player, 1.0F / 0.0f, 5.0F, 2147483647, false, false);
                             this.shootLaser(stack, world, new Vector3(start.x, start.y, start.z + 1.0D), dir, player, 1.0F / 0.0f, 5.0F, 2147483647, false, false);
                             this.shootLaser(stack, world, new Vector3(start.x, start.y, start.z - 1.0D), dir, player, 1.0F / 0.0f, 5.0F, 2147483647, false, false);
-                            ((NetworkManager)IC2.network.get(true)).initiateItemEvent(player, stack, 7, true);
+                            ((NetworkManager) IC2.network.get(true)).initiateItemEvent(player, stack, 7, true);
                         }
                     }
                 } else {
@@ -283,7 +285,7 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
     }
 
     public void onNetworkEvent(ItemStack stack, EntityPlayer player, int event) {
-        switch(event) {
+        switch (event) {
             case 0:
                 IC2.audioManager.playOnce(player, PositionSpec.Hand, "Tools/MiningLaser/MiningLaser.ogg", true, IC2.audioManager.getDefaultVolume());
                 break;
@@ -312,7 +314,7 @@ public class ItemToolMiningLaser extends ItemElectricTool implements INetworkIte
     }
 
     private static String getModeString(int mode) {
-        switch(mode) {
+        switch (mode) {
             case 0:
                 return "ic2.tooltip.mode.mining";
             case 1:

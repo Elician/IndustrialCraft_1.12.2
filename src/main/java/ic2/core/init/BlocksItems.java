@@ -176,8 +176,8 @@ public class BlocksItems {
     TeBlockRegistry.addCreativeRegisterer(TeBlock.invalid);
     TeBlock.reactor_chamber.setPlaceHandler(ItemHandlers.reactorChamberPlace);
     TeBlockRegistry.buildBlocks();
-    ItemBlockTileEntity itemTeBlock = TeBlockRegistry.get(TeBlock.itnt.getIdentifier()).getItem();
-    BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.func_82595_a(itemTeBlock, new BehaviorTeBlockDispense());
+    //ItemBlockTileEntity itemTeBlock = TeBlockRegistry.get(TeBlock.itnt.getIdentifier()).getItem();
+    //BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.func_82595_a(itemTeBlock, new BehaviorTeBlockDispense());
     BlockOre.create();
     BlockName.resource.getInstance().setHarvestLevel("pickaxe", 1, BlockName.resource.getBlockState(ResourceBlock.copper_ore));
     BlockName.resource.getInstance().setHarvestLevel("pickaxe", 1, BlockName.resource.getBlockState(ResourceBlock.lead_ore));

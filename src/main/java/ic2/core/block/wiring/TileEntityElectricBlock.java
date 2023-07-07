@@ -29,13 +29,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
 
-public abstract class TileEntityElectricBlock extends TileEntityInventory implements ITickable, IEnergyProvider, IHasGui, INetworkClientTileEntityEventListener, IEnergyStorage {
+public abstract class TileEntityElectricBlock extends TileEntityInventory implements IEnergyReceiver, IEnergyProvider, IHasGui, INetworkClientTileEntityEventListener, IEnergyStorage {
   protected double output;
   public byte redstoneMode = 0;
   public static byte redstoneModes = 7;
@@ -44,32 +47,6 @@ public abstract class TileEntityElectricBlock extends TileEntityInventory implem
   public final Energy energy;
   public final Redstone redstone;
   public final RedstoneEmitter rsEmitter;
-
-  public static void initialize() {
-    GameRegistry.registerTileEntity(TileEntityElectricBlock.class, "ic2:storage_cell");
-  }
-
-  public int receiveEnergy(EnumFacing enumFacing, int maxReceive, boolean simulate) {
-    if (!this.energy.getSinkDirs().contains(enumFacing)) return 0;
-
-    int energyReceived = Math.min(this.getCapacity() - this.getStored(), maxReceive);
-
-    if (!simulate) {
-      this.addEnergy(energyReceived);
-    }
-
-    return energyReceived;
-  }
-
-  public int extractEnergy(EnumFacing enumFacing, int maxExtract, boolean simulate) {
-    if (!this.energy.getSourceDirs().contains(enumFacing)) return 0;
-
-    int energyExtracted = Math.min(this.getStored(), maxExtract);
-
-    this.energy.useEnergy(energyExtracted, simulate);
-
-    return energyExtracted;
-  }
 
   public boolean canConnectEnergy(EnumFacing enumFacing) {
     return true;
@@ -110,9 +87,26 @@ public abstract class TileEntityElectricBlock extends TileEntityInventory implem
   }
 
   protected void updateEntityServer() {
+
     super.updateEntityServer();
     this.energy.setSendingEnabled(this.shouldEmitEnergy());
     this.rsEmitter.setLevel(this.shouldEmitRedstone() ? 15 : 0);
+
+    for (EnumFacing facing : EnumFacing.values()) {
+
+      if (!this.energy.getSourceDirs().contains(facing)) continue;
+
+      BlockPos pos = this.pos.offset(facing);
+      TileEntity te = this.getWorld().getTileEntity(pos);
+      if (te == null) continue;
+      if (te instanceof IEnergyReceiver) {
+        IEnergyReceiver rcv = (IEnergyReceiver) te;
+        if (rcv.canConnectEnergy(facing.getOpposite()) && this.getStored() > 0) {
+          int maxAmount = rcv.receiveEnergy(facing.getOpposite(), (int) Math.min(this.getStored(), output), false);
+          this.energy.useEnergy(maxAmount);
+        }
+      }
+    }
   }
 
   public ContainerBase<? extends TileEntityElectricBlock> getGuiContainer(EntityPlayer player) {
@@ -233,7 +227,91 @@ public abstract class TileEntityElectricBlock extends TileEntityInventory implem
   @SideOnly(Side.CLIENT)
   public void addInformation(ItemStack stack, List<String> tooltip, ITooltipFlag advanced) {
     super.addInformation(stack, tooltip, advanced);
-    tooltip.add(String.format("%s %.0f %s %s %d %s", Localization.translate("ic2.item.tooltip.Output"), EnergyNet.instance.getPowerFromTier(this.energy.getSourceTier()), Localization.translate("ic2.generic.text.EUt"), Localization.translate("ic2.item.tooltip.Capacity"), this.getCapacity(), Localization.translate("ic2.generic.text.EU")));
+    tooltip.add(String.format("%s %.0f %s %s %d %s", Localization.translate("ic2.item.tooltip.Output"), this.output, Localization.translate("ic2.generic.text.EUt"), Localization.translate("ic2.item.tooltip.Capacity"), this.getCapacity(), Localization.translate("ic2.generic.text.EU")));
     tooltip.add(Localization.translate("ic2.item.tooltip.Store") + " " + (long)StackUtil.getOrCreateNbtData(stack).getDouble("energy") + " " + Localization.translate("ic2.generic.text.EU"));
   }
+
+  /* CAPABILITIES */
+  @Override
+  public boolean hasCapability(Capability<?> capability, EnumFacing from) {
+
+    return capability != CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, from));
+  }
+
+  @Override
+  public <T> T getCapability(Capability<T> capability, final EnumFacing from) {
+
+    if (capability == CapabilityEnergy.ENERGY) {
+      return CapabilityEnergy.ENERGY.cast(new net.minecraftforge.energy.IEnergyStorage() {
+
+        @Override
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+
+          return TileEntityElectricBlock.this.receiveEnergy(from, maxReceive, simulate);
+        }
+
+        @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+
+          return TileEntityElectricBlock.this.extractEnergy(from, maxExtract, simulate);
+        }
+
+        @Override
+        public int getEnergyStored() {
+
+          return TileEntityElectricBlock.this.getEnergyStored(from);
+        }
+
+        @Override
+        public int getMaxEnergyStored() {
+
+          return TileEntityElectricBlock.this.getMaxEnergyStored(from);
+        }
+
+        @Override
+        public boolean canExtract() {
+
+          return true;
+        }
+
+        @Override
+        public boolean canReceive() {
+
+          return true;
+        }
+      });
+    }
+    return super.getCapability(capability, from);
+  }
+
+  public int receiveEnergy(EnumFacing enumFacing, int maxReceive, boolean simulate) {
+    if (!this.energy.getSinkDirs().contains(enumFacing)) return 0;
+
+    return this.receiveEnergy(maxReceive, simulate);
+  }
+
+  public int extractEnergy(EnumFacing enumFacing, int maxExtract, boolean simulate) {
+    if (!this.energy.getSourceDirs().contains(enumFacing)) return 0;
+
+    return this.extractEnergy(maxExtract, simulate);
+  }
+
+  public int receiveEnergy(int maxReceive, boolean simulate) {
+    int energyReceived = Math.min(this.getCapacity() - this.getStored(), maxReceive);
+
+    if (!simulate) {
+      this.addEnergy(energyReceived);
+    }
+
+    return energyReceived;
+  }
+
+  public int extractEnergy(int maxExtract, boolean simulate) {
+    int energyExtracted = Math.min(this.getStored(), maxExtract);
+
+    this.energy.useEnergy(energyExtracted, simulate);
+
+    return energyExtracted;
+  }
+
 }
