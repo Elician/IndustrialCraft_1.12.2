@@ -127,7 +127,7 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
   }
 
   public List<String> getHudInfo(ItemStack stack, boolean advanced) {
-    List<String> info = new LinkedList();
+    List<String> info = new LinkedList<>();
     info.add(ElectricItem.manager.getToolTip(stack));
     info.add(Localization.translate("ic2.item.tooltip.PowerTier", this.tier));
     return info;
