@@ -85,6 +85,8 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
   @Override
   public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean isSelected) {
 
+    if (!this.canProvideEnergy(stack)) return;
+
     Iterable<ItemStack> equipment;
     EntityPlayer player = (EntityPlayer) entity;
 

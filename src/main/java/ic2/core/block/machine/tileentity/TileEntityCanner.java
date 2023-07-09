@@ -67,7 +67,7 @@ public class TileEntityCanner extends TileEntityStandardMachine<Object, Object, 
     }
 
     public TileEntityCanner() {
-        super(200, 20000, 1);
+        super(180, 20000, 1);
         this.mode = TileEntityCanner.Mode.BottleSolid;
         this.inputSlot = new InvSlotProcessableCanner(this, "input", 1);
         this.canInputSlot = new InvSlotConsumableCanner(this, "canInput", 1);

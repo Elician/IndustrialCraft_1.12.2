@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 
 @NotClassic
 public class TileEntityKineticGenerator extends TileEntityConversionGenerator {
-    private final double euPerKu = 1.25 * (double)ConfigUtil.getFloat(MainConfig.get(), "balance/energy/generator/Kinetic");
+    private final double euPerKu = 0.75 * (double)ConfigUtil.getFloat(MainConfig.get(), "balance/energy/generator/Kinetic");
     protected IKineticSource source;
 
     public TileEntityKineticGenerator() {

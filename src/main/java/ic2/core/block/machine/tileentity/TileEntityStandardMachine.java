@@ -119,7 +119,7 @@ public abstract class TileEntityStandardMachine<RI, RO, I> extends TileEntityEle
     if (output != null && this.energy.useEnergy((double)this.energyConsume)) {
       this.setActive(true);
       if (this.progress == 0) {
-        ((NetworkManager)IC2.network.get(true)).initiateTileEntityEvent(this, 0, true);
+        (IC2.network.get(true)).initiateTileEntityEvent(this, 0, true);
       }
 
       ++this.progress;
@@ -127,14 +127,14 @@ public abstract class TileEntityStandardMachine<RI, RO, I> extends TileEntityEle
         this.operate(output);
         needsInvUpdate = true;
         this.progress = 0;
-        ((NetworkManager)IC2.network.get(true)).initiateTileEntityEvent(this, 2, true);
+        (IC2.network.get(true)).initiateTileEntityEvent(this, 2, true);
       }
     } else {
       if (this.getActive()) {
         if (this.progress != 0) {
-          ((NetworkManager)IC2.network.get(true)).initiateTileEntityEvent(this, 1, true);
+          (IC2.network.get(true)).initiateTileEntityEvent(this, 1, true);
         } else {
-          ((NetworkManager)IC2.network.get(true)).initiateTileEntityEvent(this, 3, true);
+          (IC2.network.get(true)).initiateTileEntityEvent(this, 3, true);
         }
       }
 

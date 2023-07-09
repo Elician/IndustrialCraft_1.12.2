@@ -283,14 +283,17 @@ public class BlocksItems {
     ItemMulti.create(ItemName.crop_res, CropResItemType.class);
     new ItemTerraWart();
     new ItemCropnalyzer();
-    new ItemBattery(ItemName.re_battery, 10000.0, 100.0, 1);
-    ItemBattery var10001 = new ItemBattery(ItemName.advanced_re_battery, 100000.0, 256.0, 2) {
+
+    new ItemBattery(ItemName.re_battery, 50000.0, 500.0, 1);
+    new ItemBattery(ItemName.advanced_re_battery, 500000.0, 1000.0, 2) {
       protected boolean isEnabled() {
-        return !IC2.version.isClassic();
+        return true;
       }
     };
-    new ItemBattery(ItemName.energy_crystal, 1000000.0, 2048.0, 3);
-    (new ItemBattery(ItemName.lapotron_crystal, 1.0E7, 8092.0, 4)).setRarity(EnumRarity.UNCOMMON);
+    new ItemBattery(ItemName.energy_crystal, 5000000.0, 5000.0, 3);
+    (new ItemBattery(ItemName.lapotron_crystal, 50000000, 50000, 4)).setRarity(EnumRarity.UNCOMMON);
+    (new ItemBattery(ItemName.afb_crystal, 500000000, 100000, 5)).setRarity(EnumRarity.UNCOMMON);
+
     new ItemBatterySU(ItemName.single_use_battery, 1200, 1);
     new ItemBatteryChargeHotbar(ItemName.charging_re_battery, 40000.0, 128.0, 1);
     new ItemBatteryChargeHotbar(ItemName.advanced_charging_re_battery, 400000.0, 1024.0, 2);
