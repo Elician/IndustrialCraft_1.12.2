@@ -94,6 +94,7 @@ public enum ItemName {
     advanced_scanner(ItemFolder.toolElectric),
     chainsaw(ItemFolder.toolElectric),
     diamond_drill(ItemFolder.toolElectric),
+    advanced_drill(ItemFolder.toolElectric),
     drill(ItemFolder.toolElectric),
     electric_hoe(ItemFolder.toolElectric),
     electric_treetap(ItemFolder.toolElectric),
