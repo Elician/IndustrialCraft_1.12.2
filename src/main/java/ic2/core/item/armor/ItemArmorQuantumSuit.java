@@ -303,7 +303,7 @@ public class ItemArmorQuantumSuit extends ItemArmorElectric implements IJetpack,
           skylight = (byte)(skylight + 1);
           if (skylight >= 10) {
             skylight = 0;
-            ElectricItem.manager.use(stack, 1000.0, (EntityLivingBase)null);
+            ElectricItem.manager.use(stack, 1000.0, null);
             ret = true;
           }
 
@@ -328,7 +328,7 @@ public class ItemArmorQuantumSuit extends ItemArmorElectric implements IJetpack,
         if (IC2.platform.isSimulating()) {
           boolean wasOnGround = nbtData.contains("wasOnGround") ? nbtData.getBoolean("wasOnGround") : true;
           if (wasOnGround && !player.onGround && IC2.keyboard.isJumpKeyDown(player) && IC2.keyboard.isBoostKeyDown(player)) {
-            ElectricItem.manager.use(stack, 4000.0, (EntityLivingBase)null);
+            ElectricItem.manager.use(stack, 4000.0, null);
             ret = true;
           }
 
@@ -369,7 +369,7 @@ public class ItemArmorQuantumSuit extends ItemArmorElectric implements IJetpack,
   }
 
   public boolean drainEnergy(ItemStack pack, int amount) {
-    return ElectricItem.manager.discharge(pack, (double)(amount + 6), Integer.MAX_VALUE, true, false, false) > 0.0;
+    return ElectricItem.manager.discharge(pack, (amount + 6), Integer.MAX_VALUE, true, false, false) > 0.0;
   }
 
   public float getPower(ItemStack stack) {

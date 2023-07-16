@@ -92,7 +92,10 @@ public enum ItemName {
     crop_seed_bag(ItemFolder.crop),
     weeding_trowel(ItemFolder.crop),
     advanced_scanner(ItemFolder.toolElectric),
+
     chainsaw(ItemFolder.toolElectric),
+    advchainsaw(ItemFolder.toolElectric),
+
     diamond_drill(ItemFolder.toolElectric),
     advanced_drill(ItemFolder.toolElectric),
     drill(ItemFolder.toolElectric),

@@ -6,7 +6,6 @@
 package ic2.core.init;
 
 import ic2.api.info.Info;
-import ic2.core.IC2;
 import ic2.core.IC2Potion;
 import ic2.core.Ic2Fluid;
 import ic2.core.block.BlockDynamite;
@@ -104,7 +103,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -314,11 +312,13 @@ public class BlocksItems {
     new ItemWeedingTrowel();
     new ItemCropSeed();
     new ItemScannerAdv();
-    new ItemElectricToolChainsaw();
 
     new ItemDrill(ItemName.drill, 80, HarvestLevel.Iron, 80000, 192, 1, 8.0F);
     new ItemDrill(ItemName.diamond_drill, 120, HarvestLevel.Diamond, 120000, 64, 1, 16.0F);
     new ItemAdvancedDrill();
+
+    new ItemToolChainsaw();
+    new ItemToolAdvChainsaw();
 
     new ItemElectricToolHoe();
     new ItemTreetapElectric();

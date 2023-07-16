@@ -52,7 +52,7 @@ public class ItemAdvancedDrill extends ItemDrill {
             if (!world.isRemote) {
                 DrillMode mode = readNextDrillMode(stack);
                 saveDrillMode(stack, mode);
-                Platform.messageTranslationPlayer(player, "advanced_drill.mode", mode.colour, mode.translationName);
+                Platform.messageTranslationPlayer(player, "ic2.advanced_drill.mode", mode.colour, mode.translationName);
                 this.efficiency = mode.drillSpeed;
                 this.operationEnergyCost = mode.energyCost;
             }
@@ -170,7 +170,7 @@ public class ItemAdvancedDrill extends ItemDrill {
             }
 
             if (powerRanOut) {
-                IC2.platform.messagePlayer(player, Localization.translate("advanced_drill.ranOut"));
+                IC2.platform.messagePlayer(player, Localization.translate("ic2.advanced_drill.ranOut"));
             }
 
             return true;
@@ -185,7 +185,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-        tooltip.add(TextFormatting.GOLD + Localization.translate("advanced_drill.mode", new Object[]{TextFormatting.WHITE + Localization.translate(readDrillMode(stack).translationName)}));
+        tooltip.add(TextFormatting.GOLD + Localization.translate("ic2.advanced_drill.mode", new Object[]{TextFormatting.WHITE + Localization.translate(readDrillMode(stack).translationName)}));
     }
 
     static {
@@ -205,7 +205,7 @@ public class ItemAdvancedDrill extends ItemDrill {
         private static final DrillMode[] VALUES = values();
 
         DrillMode(TextFormatting colour, float speed, double energyCost) {
-            this.translationName = "advanced_drill." + CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, this.name());
+            this.translationName = "ic2.advanced_drill." + CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, this.name());
             this.energyCost = energyCost;
             this.drillSpeed = speed;
             this.colour = colour;

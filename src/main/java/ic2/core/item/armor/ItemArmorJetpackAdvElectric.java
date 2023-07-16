@@ -54,12 +54,12 @@ public class ItemArmorJetpackAdvElectric extends ItemArmorElectric implements IB
             if (!world.isRemote) {
                 String mode;
                 if (switchJetpack(stack)) {
-                    mode = TextFormatting.DARK_GREEN + Localization.translate("jetpack.message.on");
+                    mode = TextFormatting.DARK_GREEN + Localization.translate("ic2.message.on");
                 } else {
-                    mode = TextFormatting.DARK_RED + Localization.translate("jetpack.message.off");
+                    mode = TextFormatting.DARK_RED + Localization.translate("ic2.message.off");
                 }
 
-                Platform.messageTranslationPlayer(player, "jetpack.message.switch", TextFormatting.YELLOW, mode);
+                Platform.messageTranslationPlayer(player, "ic2.jetpack.message.switch", TextFormatting.YELLOW, mode);
             }
         }
 
