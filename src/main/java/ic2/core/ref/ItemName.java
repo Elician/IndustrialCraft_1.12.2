@@ -111,21 +111,27 @@ public enum ItemName {
     cell(ItemFolder.cell, ItemName.PathStyle.FolderAndNameWithPrefix),
     cable(ItemFolder.cable),
     upgrade(ItemFolder.upgrade, ItemName.PathStyle.FolderAndSubName),
-    advanced_batpack(ItemFolder.armor),
     alloy_chestplate(ItemFolder.armor),
+
     batpack(ItemFolder.armor),
+    advanced_batpack(ItemFolder.armor),
+    energy_pack(ItemFolder.armor),
+    advanced_energypack(ItemFolder.armor),
+    lappack(ItemFolder.armor),
+
     bronze_boots(ItemFolder.armor),
     bronze_chestplate(ItemFolder.armor),
     bronze_helmet(ItemFolder.armor),
     bronze_leggings(ItemFolder.armor),
     cf_pack(ItemFolder.armor),
-    energy_pack(ItemFolder.armor),
     hazmat_chestplate(ItemFolder.armor),
     hazmat_helmet(ItemFolder.armor),
     hazmat_leggings(ItemFolder.armor),
+
     jetpack(ItemFolder.armor),
     jetpack_electric(ItemFolder.armor),
-    lappack(ItemFolder.armor),
+    jetpack_advelectric(ItemFolder.armor),
+
     nano_boots(ItemFolder.armor),
     nano_chestplate(ItemFolder.armor),
     nano_helmet(ItemFolder.armor),
@@ -146,8 +152,10 @@ public enum ItemName {
     rotor_iron(ItemFolder.rotor),
     rotor_carbon(ItemFolder.rotor),
     rotor_steel(ItemFolder.rotor),
-    dynamite(ItemFolder.root),
-    dynamite_sticky(ItemFolder.root),
+
+    //dynamite(ItemFolder.root),
+    //dynamite_sticky(ItemFolder.root),
+
     pipe(ItemFolder.pipe),
     item_pipe(ItemFolder.pipe),
     cover(ItemFolder.pipe),

@@ -3,6 +3,7 @@ package ic2.core.item.tool;
 import com.google.common.base.CaseFormat;
 import ic2.api.item.ElectricItem;
 import ic2.core.IC2;
+import ic2.core.Platform;
 import ic2.core.init.Localization;
 import ic2.core.ref.ItemName;
 import ic2.core.util.StackUtil;
@@ -51,7 +52,7 @@ public class ItemAdvancedDrill extends ItemDrill {
             if (!world.isRemote) {
                 DrillMode mode = readNextDrillMode(stack);
                 saveDrillMode(stack, mode);
-                IC2.platform.messagePlayer(player, Localization.translate("advanced_drill.mode"), mode.colour, new Object[]{mode.translationName});
+                Platform.messageTranslationPlayer(player, "advanced_drill.mode", mode.colour, mode.translationName);
                 this.efficiency = mode.drillSpeed;
                 this.operationEnergyCost = mode.energyCost;
             }
@@ -192,10 +193,10 @@ public class ItemAdvancedDrill extends ItemDrill {
     }
 
     public enum DrillMode {
-        NORMAL(TextFormatting.DARK_GREEN, 35.0F, 600),
+        NORMAL(TextFormatting.DARK_GREEN, 36.0F, 600),
         LOW_POWER(TextFormatting.GOLD, 16.0F, 250),
         FINE(TextFormatting.AQUA, 10.0F, 200),
-        BIG_HOLES(TextFormatting.LIGHT_PURPLE, 10.0F, 750);
+        BIG_HOLES(TextFormatting.LIGHT_PURPLE, 8.0F, 750);
 
         public final String translationName;
         public final TextFormatting colour;

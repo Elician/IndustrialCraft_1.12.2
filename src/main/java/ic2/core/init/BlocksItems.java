@@ -48,25 +48,14 @@ import ic2.core.item.ItemNuclearResource;
 import ic2.core.item.ItemTerraWart;
 import ic2.core.item.ItemTinCan;
 import ic2.core.item.ItemToolbox;
-import ic2.core.item.armor.ItemArmorAdvBatpack;
-import ic2.core.item.armor.ItemArmorBatpack;
-import ic2.core.item.armor.ItemArmorCFPack;
-import ic2.core.item.armor.ItemArmorEnergypack;
-import ic2.core.item.armor.ItemArmorHazmat;
-import ic2.core.item.armor.ItemArmorIC2;
-import ic2.core.item.armor.ItemArmorJetpack;
-import ic2.core.item.armor.ItemArmorJetpackElectric;
-import ic2.core.item.armor.ItemArmorLappack;
-import ic2.core.item.armor.ItemArmorNanoSuit;
-import ic2.core.item.armor.ItemArmorNightvisionGoggles;
-import ic2.core.item.armor.ItemArmorQuantumSuit;
-import ic2.core.item.armor.ItemArmorSolarHelmet;
-import ic2.core.item.armor.ItemArmorStaticBoots;
-import ic2.core.item.block.BehaviorTeBlockDispense;
+import ic2.core.item.armor.*;
+import ic2.core.item.armor.batpack.ItemArmorAdvBatpack;
+import ic2.core.item.armor.batpack.ItemArmorBatpack;
+import ic2.core.item.armor.batpack.ItemArmorAdvEnergypack;
+import ic2.core.item.armor.batpack.ItemArmorLappack;
+import ic2.core.item.armor.batpack.ItemArmorEnergypack;
 import ic2.core.item.block.ItemBarrel;
-import ic2.core.item.block.ItemBlockTileEntity;
 import ic2.core.item.block.ItemCable;
-import ic2.core.item.block.ItemDynamite;
 import ic2.core.item.block.ItemFluidPipe;
 import ic2.core.item.crafting.BlockCuttingBlade;
 import ic2.core.item.crafting.UpgradeKit;
@@ -191,23 +180,28 @@ public class BlocksItems {
   }
 
   private static void initItems() {
-    ItemArmor.ArmorMaterial bronzeArmorMaterial = EnumHelper.addArmorMaterial("IC2_BRONZE", "IC2_BRONZE", 15, new int[]{2, 5, 6, 2}, 9, (SoundEvent)null, 0.0F);
-    ItemArmor.ArmorMaterial alloyArmorMaterial = EnumHelper.addArmorMaterial("IC2_ALLOY", "IC2_ALLOY", 50, new int[]{4, 7, 9, 4}, 12, (SoundEvent)null, 2.0F);
-    new ItemArmorAdvBatpack();
+    ItemArmor.ArmorMaterial bronzeArmorMaterial = EnumHelper.addArmorMaterial("IC2_BRONZE", "IC2_BRONZE", 15, new int[]{2, 5, 6, 2}, 9, null, 0.0F);
+    ItemArmor.ArmorMaterial alloyArmorMaterial = EnumHelper.addArmorMaterial("IC2_ALLOY", "IC2_ALLOY", 50, new int[]{4, 7, 9, 4}, 12, null, 2.0F);
+
+    new ItemArmorBatpack(120000);
+    new ItemArmorAdvBatpack(1500000);
+    new ItemArmorEnergypack(6000000);
+    new ItemArmorAdvEnergypack(12000000);
+    new ItemArmorLappack(50000000);
+
+    new ItemArmorJetpackElectric();
+    new ItemArmorJetpackAdvElectric();
+
     new ItemArmorIC2(ItemName.alloy_chestplate, alloyArmorMaterial, "alloy", EntityEquipmentSlot.CHEST, ItemName.crafting.getItemStack(CraftingItemType.alloy));
-    new ItemArmorBatpack();
     new ItemArmorIC2(ItemName.bronze_boots, bronzeArmorMaterial, "bronze", EntityEquipmentSlot.FEET, "ingotBronze");
     new ItemArmorIC2(ItemName.bronze_chestplate, bronzeArmorMaterial, "bronze", EntityEquipmentSlot.CHEST, "ingotBronze");
     new ItemArmorIC2(ItemName.bronze_helmet, bronzeArmorMaterial, "bronze", EntityEquipmentSlot.HEAD, "ingotBronze");
     new ItemArmorIC2(ItemName.bronze_leggings, bronzeArmorMaterial, "bronze", EntityEquipmentSlot.LEGS, "ingotBronze");
-    new ItemArmorCFPack();
-    new ItemArmorEnergypack();
     new ItemArmorHazmat(ItemName.hazmat_chestplate, EntityEquipmentSlot.CHEST);
     new ItemArmorHazmat(ItemName.hazmat_helmet, EntityEquipmentSlot.HEAD);
     new ItemArmorHazmat(ItemName.hazmat_leggings, EntityEquipmentSlot.LEGS);
+    new ItemArmorCFPack();
     new ItemArmorJetpack();
-    new ItemArmorJetpackElectric();
-    new ItemArmorLappack();
     new ItemArmorNanoSuit(ItemName.nano_boots, EntityEquipmentSlot.FEET);
     new ItemArmorNanoSuit(ItemName.nano_chestplate, EntityEquipmentSlot.CHEST);
     new ItemArmorNanoSuit(ItemName.nano_helmet, EntityEquipmentSlot.HEAD);
@@ -267,6 +261,7 @@ public class BlocksItems {
     new ItemBatteryChargeHotbar(ItemName.advanced_charging_re_battery, 400000.0, 1024.0, 2);
     new ItemBatteryChargeHotbar(ItemName.charging_energy_crystal, 4000000.0, 8192.0, 3);
     (new ItemBatteryChargeHotbar(ItemName.charging_lapotron_crystal, 4.0E7, 32768.0, 4)).setRarity(EnumRarity.UNCOMMON);
+
     new ItemReactorHeatStorage(ItemName.heat_storage, 10000);
     new ItemReactorHeatStorage(ItemName.tri_heat_storage, 30000);
     new ItemReactorHeatStorage(ItemName.hex_heat_storage, 60000);
@@ -305,11 +300,7 @@ public class BlocksItems {
     new Ic2Sword(bronzeToolMaterial);
     new ItemToolCutter();
     new ItemDebug();
-    if (!IC2.version.isClassic()) {
-      new ItemSprayer();
-    } else {
-      new ItemClassicSprayer();
-    }
+    new ItemSprayer();
 
     new ItemToolHammer();
     new ItemFrequencyTransmitter();
@@ -367,8 +358,8 @@ public class BlocksItems {
     new ItemWindRotor(ItemName.rotor_iron, 7, 86400, 0.5F, 14, 75, new ResourceLocation("ic2", "textures/items/rotor/iron_rotor_model.png"));
     new ItemWindRotor(ItemName.rotor_steel, 9, 172800, 0.75F, 17, 90, new ResourceLocation("ic2", "textures/items/rotor/steel_rotor_model.png"));
     new ItemWindRotor(ItemName.rotor_carbon, 11, 604800, 1.0F, 20, 110, new ResourceLocation("ic2", "textures/items/rotor/carbon_rotor_model.png"));
-    new ItemDynamite(ItemName.dynamite);
-    new ItemDynamite(ItemName.dynamite_sticky);
+//    new ItemDynamite(ItemName.dynamite);
+//    new ItemDynamite(ItemName.dynamite_sticky);
     new ItemRemote();
     new ItemFluidPipe();
     new ItemPumpCover();
