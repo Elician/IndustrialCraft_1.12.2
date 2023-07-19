@@ -25,9 +25,11 @@ import java.util.LinkedList;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -86,6 +88,7 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
   public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean isSelected) {
 
     if (!this.canProvideEnergy(stack)) return;
+    if (EntityLiving.getSlotForItemStack(stack) != EntityEquipmentSlot.CHEST) return;
 
     Iterable<ItemStack> equipment;
     EntityPlayer player = (EntityPlayer) entity;

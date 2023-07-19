@@ -12,9 +12,9 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 @NotClassic
-public class ItemArmorEnergypack extends ItemArmorElectric {
+public class ItemArmorEnergypack extends ItemArmorElectric implements IBatpack {
   public ItemArmorEnergypack(int capacity) {
-    super(ItemName.energy_pack, ArmorMaterial.DIAMOND, "energypack", EntityEquipmentSlot.CHEST, capacity, 6000, 3);
+    super(ItemName.energy_pack, ArmorMaterial.LEATHER, "energypack", EntityEquipmentSlot.CHEST, capacity, 6000, 3);
   }
 
   public boolean canProvideEnergy(ItemStack stack) {

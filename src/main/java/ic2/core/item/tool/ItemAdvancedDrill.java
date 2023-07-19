@@ -189,7 +189,7 @@ public class ItemAdvancedDrill extends ItemDrill {
     }
 
     static {
-        MATERIALS = new Material[]{Material.ROCK, Material.EARTH, /*Material.GROUND,*/ Material.SAND, Material.CLAY};
+        MATERIALS = new Material[]{Material.ROCK, Material.EARTH, Material.PLANTS, Material.TALL_PLANTS, Material.SAND, Material.CLAY};
     }
 
     public enum DrillMode {

@@ -18,8 +18,12 @@ import net.minecraft.world.World;
 public class ItemArmorJetpackAdvElectric extends ItemArmorElectric implements IBoostingJetpack {
 
     public ItemArmorJetpackAdvElectric() {
+        this(ItemName.jetpack_advelectric, "advjetpack");
+    }
 
-        super(ItemName.jetpack_advelectric, ArmorMaterial.DIAMOND, "advjetpack", EntityEquipmentSlot.CHEST, 8000000, 4000, 3);
+    public ItemArmorJetpackAdvElectric(ItemName item, String armorName) {
+
+        super(item, ArmorMaterial.LEATHER, armorName, EntityEquipmentSlot.CHEST, 6000000, 4000, 3);
 
         this.func_77656_e(27);
         this.func_77625_d(1);
@@ -50,7 +54,7 @@ public class ItemArmorJetpackAdvElectric extends ItemArmorElectric implements IB
         byte toggleTimer = nbt.getByte("toggleTimer");
         if (IC2.keyboard.isModeSwitchKeyDown(player) && toggleTimer == 0) {
             toggleTimer = 10;
-            nbt.putByte("toggleTimer", (byte)10);
+            nbt.putByte("toggleTimer", (byte) 10);
             if (!world.isRemote) {
                 String mode;
                 if (switchJetpack(stack)) {

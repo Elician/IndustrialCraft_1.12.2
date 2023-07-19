@@ -10,7 +10,7 @@ import ic2.core.ref.ItemName;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
-public class ItemArmorBatpack extends ItemArmorElectric {
+public class ItemArmorBatpack extends ItemArmorElectric implements IBatpack {
   public ItemArmorBatpack(int capacity) {
     super(ItemName.batpack, ArmorMaterial.LEATHER, "batpack", EntityEquipmentSlot.CHEST, capacity, 512.0, 1);
   }

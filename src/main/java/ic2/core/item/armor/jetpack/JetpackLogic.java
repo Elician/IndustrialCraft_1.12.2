@@ -5,6 +5,7 @@
 
 package ic2.core.item.armor.jetpack;
 
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import ic2.core.IC2;
 import ic2.core.audio.AudioSource;
 import ic2.core.audio.PositionSpec;
@@ -57,7 +58,7 @@ public class JetpackLogic {
             double y = player.posY;
             if (y > (double)(maxFlightHeight - 25)) {
                 if (y > (double)maxFlightHeight) {
-                    y = (double)maxFlightHeight;
+                    y = maxFlightHeight;
                 }
 
                 power = (float)((double)power * (((double)maxFlightHeight - y) / 25.0));
@@ -89,13 +90,14 @@ public class JetpackLogic {
                 }
             }
 
-            int consume = 8;
-            if (hoverMode) {
-                consume = 10;
-            }
+            int consume = hoverMode ? 50 : 35;
 
             if (!player.onGround) {
-                jetpack.drainEnergy(stack, consume);
+                if (JetpackHandler.hasJetpackAttached(stack)) {
+                    ((IEnergyContainerItem) stack.getItem()).extractEnergy(stack, consume, false);
+                } else {
+                    jetpack.drainEnergy(stack, consume);
+                }
             }
 
             player.fallDistance = 0.0F;

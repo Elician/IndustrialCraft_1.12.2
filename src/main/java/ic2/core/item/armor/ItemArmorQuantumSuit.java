@@ -50,7 +50,7 @@ public class ItemArmorQuantumSuit extends ItemArmorElectric implements IJetpack,
   private float jumpCharge;
 
   public ItemArmorQuantumSuit(ItemName name, EntityEquipmentSlot armorType) {
-    super(name, "quantum", armorType, 1.0E7, 12000.0, 4);
+    super(name, "quantum", armorType, 16000000, 12000.0, 4);
     if (armorType == EntityEquipmentSlot.FEET) {
       MinecraftForge.EVENT_BUS.register(this);
     }

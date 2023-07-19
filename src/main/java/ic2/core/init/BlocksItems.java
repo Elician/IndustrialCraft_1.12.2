@@ -200,15 +200,24 @@ public class BlocksItems {
     new ItemArmorHazmat(ItemName.hazmat_leggings, EntityEquipmentSlot.LEGS);
     new ItemArmorCFPack();
     new ItemArmorJetpack();
-    new ItemArmorNanoSuit(ItemName.nano_boots, EntityEquipmentSlot.FEET);
-    new ItemArmorNanoSuit(ItemName.nano_chestplate, EntityEquipmentSlot.CHEST);
-    new ItemArmorNanoSuit(ItemName.nano_helmet, EntityEquipmentSlot.HEAD);
-    new ItemArmorNanoSuit(ItemName.nano_leggings, EntityEquipmentSlot.LEGS);
+
     new ItemArmorNightvisionGoggles();
-    new ItemArmorQuantumSuit(ItemName.quantum_boots, EntityEquipmentSlot.FEET);
-    new ItemArmorQuantumSuit(ItemName.quantum_chestplate, EntityEquipmentSlot.CHEST);
+
+    new ItemArmorNanoSuit(ItemName.nano_helmet, EntityEquipmentSlot.HEAD);
+    new ItemArmorNanoSuit(ItemName.nano_chestplate, EntityEquipmentSlot.CHEST);
+    new ItemArmorNanoSuit(ItemName.nano_leggings, EntityEquipmentSlot.LEGS);
+    new ItemArmorNanoSuit(ItemName.nano_boots, EntityEquipmentSlot.FEET);
+
+    new ItemArmorNanoAdvSuit(ItemName.nano_adv_helmet, EntityEquipmentSlot.HEAD);
+    new ItemArmorNanoAdvChestplate(ItemName.nano_adv_chestplate);
+    new ItemArmorNanoAdvSuit(ItemName.nano_adv_leggings, EntityEquipmentSlot.LEGS);
+    new ItemArmorNanoAdvSuit(ItemName.nano_adv_boots, EntityEquipmentSlot.FEET);
+
     new ItemArmorQuantumSuit(ItemName.quantum_helmet, EntityEquipmentSlot.HEAD);
+    new ItemArmorQuantumSuit(ItemName.quantum_chestplate, EntityEquipmentSlot.CHEST);
     new ItemArmorQuantumSuit(ItemName.quantum_leggings, EntityEquipmentSlot.LEGS);
+    new ItemArmorQuantumSuit(ItemName.quantum_boots, EntityEquipmentSlot.FEET);
+
     new ItemArmorHazmat(ItemName.rubber_boots, EntityEquipmentSlot.FEET);
     new ItemArmorSolarHelmet();
     new ItemArmorStaticBoots();

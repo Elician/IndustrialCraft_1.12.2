@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package ic2.core.item.armor.batpack;
 
 import ic2.core.item.armor.ItemArmorElectric;
@@ -12,9 +7,9 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 @NotClassic
-public class ItemArmorAdvBatpack extends ItemArmorElectric {
+public class ItemArmorAdvBatpack extends ItemArmorElectric implements IBatpack {
   public ItemArmorAdvBatpack(int capacity) {
-    super(ItemName.advanced_batpack, ArmorMaterial.IRON, "advbatpack", EntityEquipmentSlot.CHEST, capacity, 4096.0, 2);
+    super(ItemName.advanced_batpack, ArmorMaterial.LEATHER, "advbatpack", EntityEquipmentSlot.CHEST, capacity, 4096.0, 2);
   }
 
   public boolean canProvideEnergy(ItemStack stack) {

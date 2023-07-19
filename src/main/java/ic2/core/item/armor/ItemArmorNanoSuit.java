@@ -1,7 +1,4 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+
 
 package ic2.core.item.armor;
 
@@ -33,11 +30,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemArmorNanoSuit extends ItemArmorElectric implements IItemHudProvider {
   public ItemArmorNanoSuit(ItemName name, EntityEquipmentSlot armorType) {
-    super(name, "nano", armorType, 2000000.0, 2000.0, 3);
+    this(name, "nano", armorType, 2000000, 2000);
+  }
+
+  public ItemArmorNanoSuit(ItemName name, String armorName, EntityEquipmentSlot armorType, int maxCharge, int transferLimit) {
+    super(name, armorName, armorType, maxCharge, transferLimit, 3);
     if (armorType == EntityEquipmentSlot.FEET) {
       MinecraftForge.EVENT_BUS.register(this);
     }
-
   }
 
   public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
@@ -61,7 +61,7 @@ public class ItemArmorNanoSuit extends ItemArmorElectric implements IItemHudProv
     if (IC2.platform.isSimulating() && event.getEntity() instanceof EntityLivingBase) {
       EntityLivingBase entity = (EntityLivingBase)event.getEntity();
       ItemStack armor = entity.getItemStackFromSlot(EntityEquipmentSlot.FEET);
-      if (armor != null && armor.getItem() == this) {
+      if (armor.getItem() == this) {
         int fallDamage = (int)event.getDistance() - 3;
         if (fallDamage >= 8) {
           return;

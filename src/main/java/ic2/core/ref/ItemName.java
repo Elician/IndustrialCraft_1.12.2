@@ -135,10 +135,16 @@ public enum ItemName {
     jetpack_electric(ItemFolder.armor),
     jetpack_advelectric(ItemFolder.armor),
 
-    nano_boots(ItemFolder.armor),
-    nano_chestplate(ItemFolder.armor),
     nano_helmet(ItemFolder.armor),
+    nano_chestplate(ItemFolder.armor),
     nano_leggings(ItemFolder.armor),
+    nano_boots(ItemFolder.armor),
+
+    nano_adv_helmet(ItemFolder.armor),
+    nano_adv_chestplate(ItemFolder.armor),
+    nano_adv_leggings(ItemFolder.armor),
+    nano_adv_boots(ItemFolder.armor),
+
     nightvision_goggles(ItemFolder.armor),
     quantum_boots(ItemFolder.armor),
     quantum_chestplate(ItemFolder.armor),
