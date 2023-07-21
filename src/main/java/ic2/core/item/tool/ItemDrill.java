@@ -17,8 +17,11 @@ import java.util.Iterator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,6 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemDrill extends ItemElectricTool implements IEnergyContainerItem, IMiningDrill, IHitSoundOverride {
   public ItemDrill(ItemName name, int operationEnergyCost, HarvestLevel harvestLevel, int maxCharge, int transferLimit, int tier, float efficiency) {
     super(name, operationEnergyCost, harvestLevel, EnumSet.of(ToolClass.Pickaxe, ToolClass.Shovel));
+
     this.maxCharge = maxCharge;
     this.transferLimit = transferLimit;
     this.tier = tier;
@@ -74,10 +78,9 @@ public class ItemDrill extends ItemElectricTool implements IEnergyContainerItem,
         return player;
       }
     } else {
-      Iterator var3 = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers().iterator();
 
-      while(var3.hasNext()) {
-        EntityPlayer player = (EntityPlayer)var3.next();
+      for (net.minecraft.entity.player.EntityPlayerMP entityPlayerMP : FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers()) {
+        EntityPlayer player = entityPlayerMP;
         if (player.inventory.getCurrentItem() == stack) {
           return player;
         }
@@ -85,6 +88,16 @@ public class ItemDrill extends ItemElectricTool implements IEnergyContainerItem,
     }
 
     return null;
+  }
+
+  @Override
+  public boolean isBookEnchantable(ItemStack itemStack1, ItemStack itemStack2) {
+    return true;
+  }
+
+  @Override
+  public int getItemEnchantability() {
+    return this.field_77862_b.func_77995_e();
   }
 
   public int energyUse(ItemStack stack, World world, BlockPos pos, IBlockState state) {
@@ -152,6 +165,16 @@ public class ItemDrill extends ItemElectricTool implements IEnergyContainerItem,
 
   @Override
   public int getMaxEnergyStored(ItemStack itemStack) {
-    return this.maxCharge;
+
+    int level = 0;
+
+    Enchantment enchantment = Enchantment.getEnchantmentByID(12);
+
+    if (enchantment != null) {
+      level = EnchantmentHelper.getEnchantmentLevel(enchantment, itemStack);
+    }
+
+    return this.maxCharge + (level * level * 10000);
+
   }
 }

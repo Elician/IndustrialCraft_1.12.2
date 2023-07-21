@@ -34,8 +34,13 @@ public class ItemAdvancedDrill extends ItemDrill {
         super(ItemName.advanced_drill, (int) DrillMode.NORMAL.energyCost, HarvestLevel.Iridium, 200000, 500, 2, ItemAdvancedDrill.DrillMode.NORMAL.drillSpeed);
     }
 
-    public static DrillMode readDrillMode(ItemStack stack) {
-        return ItemAdvancedDrill.DrillMode.getFromID(StackUtil.getOrCreateNbtData(stack).getInt("toolMode"));
+    public DrillMode readDrillMode(ItemStack stack) {
+        DrillMode mode = ItemAdvancedDrill.DrillMode.getFromID(StackUtil.getOrCreateNbtData(stack).getInt("toolMode"));
+
+        this.efficiency = mode.drillSpeed;
+        this.operationEnergyCost = mode.energyCost;
+
+        return mode;
     }
 
     public static DrillMode readNextDrillMode(ItemStack stack) {
@@ -117,8 +122,8 @@ public class ItemAdvancedDrill extends ItemDrill {
     }
 
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-        World world;
-        if (readDrillMode(stack) == ItemAdvancedDrill.DrillMode.BIG_HOLES && !(world = player.world).isRemote) {
+        World world = player.world;
+        if (readDrillMode(stack) == ItemAdvancedDrill.DrillMode.BIG_HOLES && !world.isRemote && !player.func_70093_af()) {
             Collection<BlockPos> blocks = getBrokenBlocks(player, this.func_77621_a(world, player, true));
             if (!blocks.contains(pos) && canBlockBeMined(world, pos, player, true)) {
                 blocks.add(pos);
@@ -132,41 +137,43 @@ public class ItemAdvancedDrill extends ItemDrill {
                     break;
                 }
 
-                if (world.isBlockLoaded(blockPos)) {
-                    IBlockState state = world.getBlockState(blockPos);
-                    Block block = state.getBlock();
-                    if (!block.isAir(state, world, blockPos)) {
-                        int experience;
-                        if (player instanceof EntityPlayerMP) {
-                            experience = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, blockPos);
-                            if (experience < 0) {
-                                return false;
-                            }
-                        } else {
-                            experience = 0;
-                        }
-
-                        block.onBlockHarvested(world, blockPos, state, player);
-                        if (player.isCreative()) {
-                            if (block.removedByPlayer(state, world, blockPos, player, false)) {
-                                block.onPlayerDestroy(world, blockPos, state);
-                            }
-                        } else {
-                            if (block.removedByPlayer(state, world, blockPos, player, true)) {
-                                block.onPlayerDestroy(world, blockPos, state);
-                                block.harvestBlock(world, player, blockPos, state, world.getTileEntity(blockPos), stack);
-                                if (experience > 0) {
-                                    block.dropXpOnBlockBreak(world, blockPos, experience);
-                                }
-                            }
-
-                            stack.onBlockDestroyed(world, state, blockPos, player);
-                        }
-
-                        world.func_175718_b(2001, blockPos, Block.func_176210_f(state));
-                        ((EntityPlayerMP) player).connection.sendPacket(new SPacketBlockChange(world, blockPos));
-                    }
+                if (!world.isBlockLoaded(blockPos)) {
+                    continue;
                 }
+
+                IBlockState state = world.getBlockState(blockPos);
+                Block block = state.getBlock();
+
+                if (block.isAir(state, world, blockPos)) {
+                    continue;
+                }
+
+                int experience = 0;
+                if (player instanceof EntityPlayerMP) {
+                    experience = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, blockPos);
+                    if (experience < 0) return false;
+                }
+
+                block.onBlockHarvested(world, blockPos, state, player);
+
+                if (player.isCreative()) {
+                    if (block.removedByPlayer(state, world, blockPos, player, false)) {
+                        block.onPlayerDestroy(world, blockPos, state);
+                    }
+                } else {
+                    if (block.removedByPlayer(state, world, blockPos, player, true)) {
+                        block.onPlayerDestroy(world, blockPos, state);
+                        block.harvestBlock(world, player, blockPos, state, world.getTileEntity(blockPos), stack);
+                        if (experience > 0) block.dropXpOnBlockBreak(world, blockPos, experience);
+                    }
+
+                    stack.onBlockDestroyed(world, state, blockPos, player);
+                }
+
+                world.func_175718_b(2001, blockPos, Block.func_176210_f(state));
+                world.removeTileEntity(blockPos);
+                ((EntityPlayerMP) player).connection.sendPacket(new SPacketBlockChange(world, blockPos));
+
             }
 
             if (powerRanOut) {
@@ -185,7 +192,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-        tooltip.add(TextFormatting.GOLD + Localization.translate("ic2.advanced_drill.mode", new Object[]{TextFormatting.WHITE + Localization.translate(readDrillMode(stack).translationName)}));
+        tooltip.add(TextFormatting.GOLD + Localization.translate("ic2.advanced_drill.mode", TextFormatting.WHITE + Localization.translate(readDrillMode(stack).translationName)));
     }
 
     static {

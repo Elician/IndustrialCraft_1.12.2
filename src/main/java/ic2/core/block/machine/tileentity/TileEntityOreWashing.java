@@ -41,7 +41,7 @@ public class TileEntityOreWashing extends TileEntityStandardMachine<IRecipeInput
         this.fluidSlot = new InvSlotConsumableLiquidByList(this, "fluid", 1, FluidRegistry.WATER);
         this.cellSlot = new InvSlotOutput(this, "cell", 1);
         this.fluids = this.addComponent(new Fluids(this));
-        this.fluidTank = this.fluids.addTankInsert("fluid", 8000, Fluids.fluidPredicate(FluidRegistry.WATER));
+        this.fluidTank = this.fluids.addTankInsert("fluid", 10000, Fluids.fluidPredicate(FluidRegistry.WATER));
     }
 
     public static void init() {

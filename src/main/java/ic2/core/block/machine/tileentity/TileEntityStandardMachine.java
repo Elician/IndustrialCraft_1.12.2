@@ -34,7 +34,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class TileEntityStandardMachine<RI, RO, I> extends TileEntityElectricMachine implements IEnergyReceiver, IHasGui, IGuiValueProvider, INetworkTileEntityEventListener, IUpgradableBlock {
+public abstract class TileEntityStandardMachine<RI, RO, I> extends TileEntityElectricMachine implements IHasGui, IGuiValueProvider, INetworkTileEntityEventListener, IUpgradableBlock {
   protected short progress;
   public final int defaultEnergyConsume;
   public final int defaultOperationLength;
@@ -270,32 +270,5 @@ public abstract class TileEntityStandardMachine<RI, RO, I> extends TileEntityEle
     } else {
       throw new IllegalArgumentException(this.getClass().getSimpleName() + " Cannot get value for " + name);
     }
-  }
-
-  @Override
-  public int receiveEnergy(EnumFacing enumFacing, int maxReceive, boolean simulate) {
-
-    int energyReceived = (int) Math.min(this.energy.getCapacity() - this.energy.getEnergy(), maxReceive);
-
-    if (!simulate) {
-      this.energy.addEnergy(energyReceived);
-    }
-
-    return energyReceived;
-  }
-
-  @Override
-  public int getEnergyStored(EnumFacing enumFacing) {
-    return (int) this.energy.getEnergy();
-  }
-
-  @Override
-  public int getMaxEnergyStored(EnumFacing enumFacing) {
-    return (int) this.energy.getCapacity();
-  }
-
-  @Override
-  public boolean canConnectEnergy(EnumFacing enumFacing) {
-    return this.energy.getCapacity() > 0;
   }
 }
