@@ -13,12 +13,14 @@ import ic2.api.upgrade.UpgradableProperty;
 import ic2.core.block.invslot.InvSlotProcessableGeneric;
 import ic2.core.recipe.BasicMachineRecipeManager;
 import ic2.core.util.LiquidUtil;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -55,14 +57,11 @@ public class TileEntityCompressor extends TileEntityStandardMachine<IRecipeInput
     protected void findPumps() {
         World world = this.getWorld();
         this.pumps.clear();
-        EnumFacing[] var2 = EnumFacing.BY_INDEX;
-        int var3 = var2.length;
 
-        for(int var4 = 0; var4 < var3; ++var4) {
-            EnumFacing side = var2[var4];
+        for (EnumFacing side : EnumFacing.BY_INDEX) {
             TileEntity te = world.getTileEntity(this.pos.offset(side));
             if (te instanceof TileEntityPump) {
-                this.pumps.add((TileEntityPump)te);
+                this.pumps.add((TileEntityPump) te);
             }
         }
 
@@ -76,10 +75,8 @@ public class TileEntityCompressor extends TileEntityStandardMachine<IRecipeInput
         } else {
             if (!this.pumps.isEmpty() && this.inputSlot.isEmpty() && this.outputSlot.canAdd(new ItemStack(Items.SNOWBALL))) {
                 FluidStack fluid = new FluidStack(FluidRegistry.WATER, 1000);
-                Iterator var3 = this.pumps.iterator();
 
-                while(var3.hasNext()) {
-                    TileEntityPump pump = (TileEntityPump)var3.next();
+                for (TileEntityPump pump : this.pumps) {
                     FluidStack amount = LiquidUtil.drainTile(pump, EnumFacing.UP, FluidRegistry.WATER, fluid.amount, true);
                     if (amount != null) {
                         assert amount.getFluid() == FluidRegistry.WATER;
@@ -89,7 +86,7 @@ public class TileEntityCompressor extends TileEntityStandardMachine<IRecipeInput
 
                     if (fluid.amount <= 0) {
                         this.usingPumpRecipe = true;
-                        output = (new MachineRecipe((Object)null, Collections.singletonList(new ItemStack(Items.SNOWBALL)))).getResult((Object)null);
+                        output = (new MachineRecipe(null, Collections.singletonList(new ItemStack(Items.SNOWBALL)))).getResult(null);
                         break;
                     }
                 }
@@ -102,10 +99,8 @@ public class TileEntityCompressor extends TileEntityStandardMachine<IRecipeInput
     public void operateOnce(MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> output, Collection<ItemStack> processResult) {
         if (this.usingPumpRecipe) {
             FluidStack fluid = new FluidStack(FluidRegistry.WATER, 1000);
-            Iterator var4 = this.pumps.iterator();
 
-            while(var4.hasNext()) {
-                TileEntityPump pump = (TileEntityPump)var4.next();
+            for (TileEntityPump pump : this.pumps) {
                 FluidStack amount = LiquidUtil.drainTile(pump, EnumFacing.UP, FluidRegistry.WATER, fluid.amount, false);
                 if (amount != null && amount.getFluid() == FluidRegistry.WATER) {
                     fluid.amount -= amount.amount;

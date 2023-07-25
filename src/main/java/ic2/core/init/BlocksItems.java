@@ -334,7 +334,10 @@ public class BlocksItems {
     new ItemToolWrenchElectric();
     new ItemDrillIridium();
     new ItemToolMiningLaser();
+
     new ItemNanoSaber();
+    new ItemNanoSaberAdv();
+
     new ItemObscurator();
     new ItemScanner();
     new ItemWindmeter();

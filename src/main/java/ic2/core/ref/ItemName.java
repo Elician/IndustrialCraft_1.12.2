@@ -104,7 +104,10 @@ public enum ItemName {
     electric_wrench(ItemFolder.toolElectric),
     iridium_drill(ItemFolder.toolElectric),
     mining_laser(ItemFolder.toolElectric),
+
     nano_saber(ItemFolder.toolElectric, ItemName.PathStyle.FolderAndNameWithSuffix),
+    nano_saber_adv(ItemFolder.toolElectric, ItemName.PathStyle.FolderAndNameWithSuffix),
+
     obscurator(ItemFolder.toolElectric),
     plasma_launcher(ItemFolder.toolElectric),
     scanner(ItemFolder.toolElectric),

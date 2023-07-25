@@ -45,11 +45,21 @@ public class ItemNanoSaber extends ItemElectricTool {
     public static int ticker = 0;
     private int soundTicker = 0;
 
+    private final int disabled_dmg;
+    private final int enabled_dmg;
+
     public ItemNanoSaber() {
-        super(ItemName.nano_saber, 10, HarvestLevel.Diamond, EnumSet.of(ToolClass.Sword));
-        this.maxCharge = 1000000;
-        this.transferLimit = 1024;
-        this.tier = 2;
+        this(ItemName.nano_saber, 10, 1000000, 1000, 2, 6, 18);
+    }
+
+    public ItemNanoSaber(ItemName name, int energyCost, int maxCharge, int transferLimit, int tier, int disabled_dmg, int enabled_dmg) {
+        super(name, energyCost, HarvestLevel.Diamond, EnumSet.of(ToolClass.Sword));
+        this.maxCharge = maxCharge;
+        this.transferLimit = transferLimit;
+        this.tier = tier;
+
+        this.disabled_dmg = disabled_dmg;
+        this.enabled_dmg = enabled_dmg;
     }
 
     @SideOnly(Side.CLIENT)
@@ -77,9 +87,9 @@ public class ItemNanoSaber extends ItemElectricTool {
         if (slot != EntityEquipmentSlot.MAINHAND) {
             return super.getAttributeModifiers(slot, stack);
         } else {
-            int dmg = 6;
+            int dmg = disabled_dmg;
             if (ElectricItem.manager.canUse(stack, 400.0) && isActive(stack)) {
-                dmg = 30;
+                dmg = enabled_dmg;
             }
 
             Multimap<String, AttributeModifier> ret = HashMultimap.create();
@@ -96,10 +106,8 @@ public class ItemNanoSaber extends ItemElectricTool {
             if (IC2.platform.isSimulating()) {
                 drainSaber(stack, 400.0, source);
                 if (!(source instanceof EntityPlayerMP) || !(target instanceof EntityPlayer) || ((EntityPlayerMP)source).canAttackPlayer((EntityPlayer)target)) {
-                    Iterator var4 = ArmorSlot.getAll().iterator();
 
-                    while(var4.hasNext()) {
-                        EntityEquipmentSlot slot = (EntityEquipmentSlot)var4.next();
+                    for (EntityEquipmentSlot slot : ArmorSlot.getAll()) {
                         if (!ElectricItem.manager.canUse(stack, 2000.0)) {
                             break;
                         }
@@ -172,15 +180,15 @@ public class ItemNanoSaber extends ItemElectricTool {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = StackUtil.get(player, hand);
         if (world.isRemote) {
-            return new ActionResult(EnumActionResult.PASS, stack);
+            return new ActionResult<>(EnumActionResult.PASS, stack);
         } else {
             NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
             if (isActive(nbt)) {
                 setActive(nbt, false);
-                return new ActionResult(EnumActionResult.SUCCESS, stack);
+                return new ActionResult<>(EnumActionResult.SUCCESS, stack);
             } else if (ElectricItem.manager.canUse(stack, 16.0)) {
                 setActive(nbt, true);
-                return new ActionResult(EnumActionResult.SUCCESS, stack);
+                return new ActionResult<>(EnumActionResult.SUCCESS, stack);
             } else {
                 return super.onItemRightClick(world, player, hand);
             }

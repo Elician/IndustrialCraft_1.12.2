@@ -5,7 +5,6 @@
 
 package ic2.core.block.machine.tileentity;
 
-import cofh.redstoneflux.api.IEnergyReceiver;
 import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.api.recipe.MachineRecipeResult;
 import ic2.api.upgrade.IUpgradableBlock;
@@ -23,14 +22,12 @@ import ic2.core.gui.dynamic.DynamicGui;
 import ic2.core.gui.dynamic.GuiParser;
 import ic2.core.gui.dynamic.IGuiValueProvider;
 import ic2.core.network.GuiSynced;
-import ic2.core.network.NetworkManager;
 import ic2.core.util.StackUtil;
 import java.util.Collection;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -67,9 +64,7 @@ public abstract class TileEntityStandardMachine<RI, RO, I> extends TileEntityEle
     this.defaultEnergyStorage = energyStorage;
     this.outputSlot = new InvSlotOutput(this, "output", outputSlots);
     this.upgradeSlot = new InvSlotUpgrade(this, "upgrade", 4);
-    this.comparator.setUpdate(() -> {
-      return this.progress * 15 / this.operationLength;
-    });
+    this.comparator.setUpdate(() -> this.progress * 15 / this.operationLength);
   }
 
   public void read(NBTTagCompound nbttagcompound) {
@@ -116,7 +111,7 @@ public abstract class TileEntityStandardMachine<RI, RO, I> extends TileEntityEle
     super.updateEntityServer();
     boolean needsInvUpdate = false;
     MachineRecipeResult<RI, RO, I> output = this.getOutput();
-    if (output != null && this.energy.useEnergy((double)this.energyConsume)) {
+    if (output != null && this.energy.useEnergy(this.energyConsume)) {
       this.setActive(true);
       if (this.progress == 0) {
         (IC2.network.get(true)).initiateTileEntityEvent(this, 0, true);
@@ -162,7 +157,7 @@ public abstract class TileEntityStandardMachine<RI, RO, I> extends TileEntityEle
     int tier = this.upgradeSlot.getTier(this.defaultTier);
     this.energy.setSinkTier(tier);
     this.dischargeSlot.setTier(tier);
-    this.energy.setCapacity(this.defaultEnergyStorage);
+    this.energy.setCapacity(this.upgradeSlot.getEnergyStorage(this.defaultEnergyStorage, this.defaultOperationLength, this.defaultEnergyConsume));
     this.progress = (short)((int)Math.floor(previousProgress * (double)this.operationLength + 0.1));
   }
 
