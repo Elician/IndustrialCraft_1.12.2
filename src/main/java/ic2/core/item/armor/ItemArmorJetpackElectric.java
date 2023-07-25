@@ -8,12 +8,15 @@ package ic2.core.item.armor;
 import ic2.api.item.ElectricItem;
 import ic2.core.item.armor.jetpack.IJetpack;
 import ic2.core.ref.ItemName;
+import net.minecraft.client.audio.ElytraSound;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.items.wrapper.PlayerArmorInvWrapper;
 
 public class ItemArmorJetpackElectric extends ItemArmorElectric implements IJetpack {
     public ItemArmorJetpackElectric() {

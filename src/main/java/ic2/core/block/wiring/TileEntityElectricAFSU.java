@@ -5,6 +5,6 @@ import ic2.core.profile.NotClassic;
 @NotClassic
 public class TileEntityElectricAFSU extends TileEntityElectricBlock {
     public TileEntityElectricAFSU() {
-        super(5, 100000, 1000000000);
+        super(5, 200000, 1000000000);
     }
 }

@@ -6,6 +6,6 @@ import ic2.core.profile.NotClassic;
 public class TileEntityElectricMFSU extends TileEntityElectricBlock {
 
     public TileEntityElectricMFSU() {
-        super(4, 10000, 100000000);
+        super(4, 15000, 100000000);
     }
 }
