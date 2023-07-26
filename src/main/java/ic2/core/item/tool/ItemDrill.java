@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemDrill extends ItemElectricTool implements IEnergyContainerItem, IMiningDrill, IHitSoundOverride {
+public class ItemDrill extends ItemElectricTool implements IMiningDrill, IHitSoundOverride {
   public ItemDrill(ItemName name, int operationEnergyCost, HarvestLevel harvestLevel, int maxCharge, int transferLimit, int tier, float efficiency) {
     super(name, operationEnergyCost, harvestLevel, EnumSet.of(ToolClass.Pickaxe, ToolClass.Shovel));
 
@@ -134,33 +134,6 @@ public class ItemDrill extends ItemElectricTool implements IEnergyContainerItem,
     } else {
       throw new IllegalArgumentException("Invalid drill: " + StackUtil.toStringSafe(stack));
     }
-  }
-
-  @Override
-  public int receiveEnergy(ItemStack stack, int maxReceive, boolean simulate) {
-    double energyReceived = Math.min(this.maxCharge - this.getEnergyStored(stack), maxReceive);
-
-    if (!simulate) {
-      ElectricItem.manager.charge(stack, energyReceived, maxReceive, true, false);
-    }
-
-    return (int) energyReceived;
-  }
-
-  @Override
-  public int extractEnergy(ItemStack stack, int maxReceive, boolean simulate) {
-    double energyCost = Math.min(this.getEnergyStored(stack), maxReceive);
-
-    if (!simulate) {
-      ElectricItem.manager.discharge(stack, energyCost, Integer.MAX_VALUE, true, false, false);
-    }
-
-    return (int) energyCost;
-  }
-
-  @Override
-  public int getEnergyStored(ItemStack itemStack) {
-    return (int) ElectricItem.manager.getCharge(itemStack);
   }
 
   @Override

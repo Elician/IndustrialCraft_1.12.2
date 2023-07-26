@@ -108,6 +108,8 @@ public enum ItemName {
     nano_saber(ItemFolder.toolElectric, ItemName.PathStyle.FolderAndNameWithSuffix),
     nano_saber_adv(ItemFolder.toolElectric, ItemName.PathStyle.FolderAndNameWithSuffix),
 
+    nano_bow(ItemFolder.toolElectric),
+
     obscurator(ItemFolder.toolElectric),
     plasma_launcher(ItemFolder.toolElectric),
     scanner(ItemFolder.toolElectric),

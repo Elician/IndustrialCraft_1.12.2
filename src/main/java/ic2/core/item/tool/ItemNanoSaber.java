@@ -65,9 +65,9 @@ public class ItemNanoSaber extends ItemElectricTool {
     @SideOnly(Side.CLIENT)
     public void registerModels(final ItemName name) {
         String activeSuffix = "active";
-        ModelLoader.setCustomMeshDefinition(this, stack -> ItemIC2.getModelLocation(name, ItemNanoSaber.isActive(stack) ? "active" : null));
+        ModelLoader.setCustomMeshDefinition(this, stack -> ItemIC2.getModelLocation(name, ItemNanoSaber.isActive(stack) ? activeSuffix : null));
         ModelBakery.registerItemVariants(this, ItemIC2.getModelLocation(name, null));
-        ModelBakery.registerItemVariants(this, ItemIC2.getModelLocation(name, "active"));
+        ModelBakery.registerItemVariants(this, ItemIC2.getModelLocation(name, activeSuffix));
     }
 
     public float getDestroySpeed(ItemStack stack, IBlockState state) {

@@ -335,6 +335,8 @@ public class BlocksItems {
     new ItemDrillIridium();
     new ItemToolMiningLaser();
 
+    new ItemNanoBow();
+
     new ItemNanoSaber();
     new ItemNanoSaberAdv();
 
