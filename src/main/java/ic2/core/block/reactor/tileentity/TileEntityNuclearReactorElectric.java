@@ -686,11 +686,8 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
         IC2.log.log(LogCategory.PlayerActivity, Level.INFO, "Nuclear Reactor at %s melted (raw explosion power %f)", new Object[]{Util.formatPosition(this), boomPower});
         boomPower = Math.min(boomPower, ConfigUtil.getFloat(MainConfig.get(), "protection/reactorExplosionPowerLimit"));
         World world = this.getWorld();
-        EnumFacing[] var10 = EnumFacing.BY_INDEX;
-        int var12 = var10.length;
 
-        for(int var6 = 0; var6 < var12; ++var6) {
-            EnumFacing dir = var10[var6];
+        for (EnumFacing dir : EnumFacing.BY_INDEX) {
             TileEntity target = world.getTileEntity(this.pos.offset(dir));
             if (target instanceof TileEntityReactorChamberElectric) {
                 world.func_175698_g(target.getPos());
