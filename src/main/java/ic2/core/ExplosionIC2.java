@@ -2,15 +2,11 @@
 
 package ic2.core;
 
-import com.griefdefender.GriefDefenderPlugin;
-import com.griefdefender.api.claim.TrustType;
+import com.griefdefender.api.GriefDefender;
+import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.TrustTypes;
 import com.griefdefender.api.permission.Context;
-import com.griefdefender.api.permission.flag.Flag;
 import com.griefdefender.api.permission.flag.Flags;
-import com.griefdefender.api.util.generator.DummyObjectProvider;
-import com.griefdefender.claim.GDClaim;
-import com.griefdefender.permission.flag.GDFlag;
 import ic2.api.event.ExplosionEvent;
 import ic2.api.tile.ExplosionWhitelist;
 import ic2.core.item.armor.ItemArmorHazmat;
@@ -239,18 +235,19 @@ public class ExplosionIC2 extends Explosion {
                   }
 
                   Location location = new Location((Extent) this.worldObj, x, y, z);
-                  GDClaim gd_claim = GriefDefenderPlugin.getInstance().dataStore.getClaimAt(location);
 
-                  if (!gd_claim.isWilderness()) {
+                  Claim claim = GriefDefender.getCore().getClaimAt(location);
+
+                  if (claim != null && !claim.isWilderness()) {
                     if (exploder_owner_uuid != null) {
-                      if (!gd_claim.isUserTrusted(UUID.fromString(exploder_owner_uuid), TrustTypes.BUILDER)) continue;
+                      if (!claim.isUserTrusted(UUID.fromString(exploder_owner_uuid), TrustTypes.BUILDER)) continue;
                     }
 
                     Set<Context> contexts = new HashSet<>();
 
                     contexts.add(new Context("source", "ic2:te:22"));
 
-                    boolean is_allow_explosions = gd_claim.getFlagPermissionValue(Flags.EXPLOSION_BLOCK, contexts).asBoolean();
+                    boolean is_allow_explosions = claim.getFlagPermissionValue(Flags.EXPLOSION_BLOCK, contexts).asBoolean();
 
                     if (!is_allow_explosions) continue;
                   }
