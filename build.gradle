@@ -47,6 +47,9 @@ configurations {
 
 dependencies {
 	compileOnly name: archivesBaseName + '-' + version + '-dev'
+	compileOnly name: "griefdefender-sponge-1.5.9"
+	compileOnly name: "griefdefender-sponge-1.5.9-api"
+	compileOnly name: "spongeforge-1.12.2-2838-7.3.0"
 
     extraLibs name: "RedstoneFlux-1.12-2.1.1.1-universal"
     configurations.compile.extendsFrom(configurations.extraLibs)

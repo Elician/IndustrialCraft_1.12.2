@@ -107,6 +107,7 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
     public int EmitHeat = 0;
     private boolean fluidCooled = false;
     public boolean addedToEnergyNet = false;
+    public String owner_uuid = null;
 
     public IEnergyProvider energyProvider = null;
     public EnumFacing energyProviderFacing = null;
@@ -123,6 +124,10 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
         this.coolantoutputSlot = new InvSlotOutput(this, "coolantoutputSlot", 1);
         this.hotcoolantoutputSlot = new InvSlotOutput(this, "hotcoolantoutputSlot", 1);
         this.redstone = this.addComponent(new Redstone(this));
+    }
+
+    public String getOwnerUUID() {
+        return this.owner_uuid;
     }
 
     @Override
@@ -184,12 +189,14 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
         super.read(nbt);
         this.heat = nbt.getInt("heat");
         this.output = nbt.getShort("output");
+        this.owner_uuid = nbt.getString("owner_uuid");
     }
 
     public NBTTagCompound write(NBTTagCompound nbt) {
         nbt = super.write(nbt);
         nbt.putInt("heat", this.heat);
         nbt.putShort("output", (short)((int)this.getReactorEnergyOutput()));
+        nbt.putString("owner_uuid", this.getOwnerUUID());
         return nbt;
     }
 
@@ -553,6 +560,7 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
     }
 
     protected boolean onActivated(EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        this.owner_uuid = player.getPersistentID().toString();
         return !StackUtil.checkItemEquality(StackUtil.get(player, hand), BlockName.te.getItemStack(TeBlock.reactor_chamber)) && super.onActivated(player, hand, side, hitX, hitY, hitZ);
     }
 
@@ -696,7 +704,7 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
 
         world.func_175698_g(this.pos);
         ExplosionIC2 explosion = new ExplosionIC2(world, null, this.pos, boomPower, 0.01F, Type.Nuclear);
-        explosion.doExplosion();
+        explosion.doExplosion(this.getOwnerUUID());
     }
 
     public void addEmitHeat(int heat) {
