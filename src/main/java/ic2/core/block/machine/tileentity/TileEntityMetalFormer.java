@@ -33,7 +33,7 @@ public class TileEntityMetalFormer extends TileEntityStandardMachine<IRecipeInpu
     public static final int EventSwitch = 0;
 
     public TileEntityMetalFormer() {
-        super(270, 30000, 1);
+        super(120, 15000, 1);
         this.inputSlot = new InvSlotProcessableGeneric(this, "input", 1, Recipes.metalformerExtruding);
     }
 

@@ -26,7 +26,7 @@ public class TileEntityMacerator extends TileEntityStandardMachine<IRecipeInput,
     public static List<Map.Entry<ItemStack, ItemStack>> recipes = new Vector<>();
 
     public TileEntityMacerator() {
-        super(120, 20000, 1);
+        super(75, 15000, 1);
         this.inputSlot = new InvSlotProcessableGeneric(this, "input", 1, Recipes.macerator);
     }
 

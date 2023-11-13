@@ -36,7 +36,7 @@ public class TileEntityOreWashing extends TileEntityStandardMachine<IRecipeInput
     protected final Fluids fluids;
 
     public TileEntityOreWashing() {
-        super(650, 70000, 3);
+        super(150, 20000, 3);
         this.inputSlot = new InvSlotProcessableGeneric(this, "input", 1, Recipes.oreWashing);
         this.fluidSlot = new InvSlotConsumableLiquidByList(this, "fluid", 1, FluidRegistry.WATER);
         this.cellSlot = new InvSlotOutput(this, "cell", 1);
