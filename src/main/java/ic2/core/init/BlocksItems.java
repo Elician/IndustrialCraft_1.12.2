@@ -218,8 +218,12 @@ public class BlocksItems {
     new ItemArmorQuantumSuit(ItemName.quantum_leggings, EntityEquipmentSlot.LEGS);
     new ItemArmorQuantumSuit(ItemName.quantum_boots, EntityEquipmentSlot.FEET);
 
+    new ItemArmorMetaQuantumSuit(ItemName.meta_quantum_helmet, EntityEquipmentSlot.HEAD);
+    new ItemArmorMetaQuantumSuit(ItemName.meta_quantum_chestplate, EntityEquipmentSlot.CHEST);
+    new ItemArmorMetaQuantumSuit(ItemName.meta_quantum_leggings, EntityEquipmentSlot.LEGS);
+    new ItemArmorMetaQuantumSuit(ItemName.meta_quantum_boots, EntityEquipmentSlot.FEET);
+
     new ItemArmorHazmat(ItemName.rubber_boots, EntityEquipmentSlot.FEET);
-    new ItemArmorSolarHelmet();
     new ItemArmorStaticBoots();
     new ItemIC2Boat();
     new ItemBarrel();
@@ -241,7 +245,13 @@ public class BlocksItems {
     miscResource.setUseHandler(MiscResourceType.water_sheet, ItemHandlers.getFluidPlacer(Blocks.WATER));
     miscResource.setUseHandler(MiscResourceType.lava_sheet, ItemHandlers.getFluidPlacer(Blocks.LAVA));
     ItemMulti<CraftingItemType> crafting = ItemMulti.create(ItemName.crafting, CraftingItemType.class);
-    crafting.setRarity(CraftingItemType.advanced_circuit, EnumRarity.UNCOMMON);
+
+    crafting.setRarity(CraftingItemType.ultimate_circuit, EnumRarity.UNCOMMON);
+    crafting.setRarity(CraftingItemType.quantum_circuit, EnumRarity.UNCOMMON);
+    crafting.setRarity(CraftingItemType.gravity_circuit, EnumRarity.RARE);
+    crafting.setRarity(CraftingItemType.plasma_circuit, EnumRarity.RARE);
+    crafting.setRarity(CraftingItemType.meta_circuit, EnumRarity.EPIC);
+
     crafting.setRarity(CraftingItemType.iridium, EnumRarity.RARE);
     crafting.setRightClickHandler(CraftingItemType.cf_powder, ItemHandlers.cfPowderApply);
     crafting.setRightClickHandler(CraftingItemType.scrap_box, ItemHandlers.scrapBoxUnpack);
@@ -343,7 +353,6 @@ public class BlocksItems {
     new ItemObscurator();
     new ItemScanner();
     new ItemWindmeter();
-    new ItemToolPainter();
     new ItemFluidCell();
     ItemMulti<CellType> cell = new ItemClassicCell();
     cell.setUseHandler(CellType.empty, ItemHandlers.emptyCellFill);

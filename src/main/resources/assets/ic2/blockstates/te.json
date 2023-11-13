@@ -9,9 +9,6 @@
 
       "wall": { "model": "ic2:cf/wall" },
 
-      "itnt": { "model": "ic2:explosive/itnt" },
-      "nuke": { "model": "ic2:explosive/nuke" },
-
       "generator": { "model": "ic2:generator/electric/generator" },
       "generator_active": { "model": "ic2:generator/electric/generator_active" },
       "geo_generator": { "model": "ic2:generator/electric/geo_generator" },
@@ -22,8 +19,37 @@
       "rt_generator_active": { "model": "ic2:generator/electric/rt_generator_active" },
       "semifluid_generator": { "model": "ic2:generator/electric/semifluid_generator" },
       "semifluid_generator_active": { "model": "ic2:generator/electric/semifluid_generator_active" },
-      "solar_generator": { "model": "ic2:generator/electric/solar_generator" },
-      "solar_generator_active": { "model": "ic2:generator/electric/solar_generator" },
+
+      "solar_tier1": { "model": "ic2:generator/electric/solar_tier1" },
+      "solar_tier1_active": { "model": "ic2:generator/electric/solar_tier1" },
+
+      "solar_tier2": { "model": "ic2:generator/electric/solar_tier2" },
+      "solar_tier2_active": { "model": "ic2:generator/electric/solar_tier2" },
+
+      "solar_tier3": { "model": "ic2:generator/electric/solar_tier3" },
+      "solar_tier3_active": { "model": "ic2:generator/electric/solar_tier3" },
+
+      "solar_tier4": { "model": "ic2:generator/electric/solar_tier4" },
+      "solar_tier4_active": { "model": "ic2:generator/electric/solar_tier4" },
+
+      "solar_tier5": { "model": "ic2:generator/electric/solar_tier5" },
+      "solar_tier5_active": { "model": "ic2:generator/electric/solar_tier5" },
+
+      "solar_tier6": { "model": "ic2:generator/electric/solar_tier6" },
+      "solar_tier6_active": { "model": "ic2:generator/electric/solar_tier6" },
+
+      "solar_tier7": { "model": "ic2:generator/electric/solar_tier7" },
+      "solar_tier7_active": { "model": "ic2:generator/electric/solar_tier7" },
+
+      "solar_tier8": { "model": "ic2:generator/electric/solar_tier8" },
+      "solar_tier8_active": { "model": "ic2:generator/electric/solar_tier8" },
+
+      "solar_tier9": { "model": "ic2:generator/electric/solar_tier9" },
+      "solar_tier9_active": { "model": "ic2:generator/electric/solar_tier9" },
+
+      "solar_tier10": { "model": "ic2:generator/electric/solar_tier10" },
+      "solar_tier10_active": { "model": "ic2:generator/electric/solar_tier10" },
+
       "stirling_generator": { "model": "ic2:generator/electric/stirling_generator" },
       "stirling_generator_active": { "model": "ic2:generator/electric/stirling_generator_active" },
       "water_generator": { "model": "ic2:generator/electric/water_generator" },

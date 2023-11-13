@@ -1,7 +1,4 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+
 
 package ic2.core.ref;
 
@@ -114,7 +111,6 @@ public enum ItemName {
     plasma_launcher(ItemFolder.toolElectric),
     scanner(ItemFolder.toolElectric),
     wind_meter(ItemFolder.toolElectric),
-    painter(ItemFolder.toolPainter, ItemName.PathStyle.FolderAndNameWithSuffix),
     fluid_cell(ItemFolder.cell),
     cell(ItemFolder.cell, ItemName.PathStyle.FolderAndNameWithPrefix),
     cable(ItemFolder.cable),
@@ -155,6 +151,12 @@ public enum ItemName {
     quantum_chestplate(ItemFolder.armor),
     quantum_helmet(ItemFolder.armor),
     quantum_leggings(ItemFolder.armor),
+
+    meta_quantum_boots(ItemFolder.armor),
+    meta_quantum_chestplate(ItemFolder.armor),
+    meta_quantum_helmet(ItemFolder.armor),
+    meta_quantum_leggings(ItemFolder.armor),
+
     rubber_boots(ItemFolder.armor),
     solar_helmet(ItemFolder.armor),
     static_boots(ItemFolder.armor),

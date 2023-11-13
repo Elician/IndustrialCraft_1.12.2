@@ -17,7 +17,6 @@ import ic2.core.ref.ItemName;
 import ic2.core.slot.ArmorSlot;
 import ic2.core.util.StackUtil;
 import java.util.EnumSet;
-import java.util.Iterator;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.entity.Entity;

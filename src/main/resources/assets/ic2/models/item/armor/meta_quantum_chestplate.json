@@ -1,0 +1,7 @@
+{
+	"parent": "ic2:item/default",
+	"textures": {
+		"layer0": "ic2:items/armor/meta_quantum_chestplate",
+		"layer1": "ic2:items/armor/meta_quantum_chestplate_overlay"
+	}
+}

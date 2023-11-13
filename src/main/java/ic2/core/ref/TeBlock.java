@@ -13,16 +13,8 @@ import ic2.core.block.TeBlockRegistry;
 import ic2.core.block.TileEntityBarrel;
 import ic2.core.block.TileEntityBlock;
 import ic2.core.block.TileEntityWall;
-import ic2.core.block.generator.tileentity.TileEntityCreativeGenerator;
-import ic2.core.block.generator.tileentity.TileEntityGenerator;
-import ic2.core.block.generator.tileentity.TileEntityGeoGenerator;
-import ic2.core.block.generator.tileentity.TileEntityKineticGenerator;
-import ic2.core.block.generator.tileentity.TileEntityRTGenerator;
-import ic2.core.block.generator.tileentity.TileEntitySemifluidGenerator;
-import ic2.core.block.generator.tileentity.TileEntitySolarGenerator;
-import ic2.core.block.generator.tileentity.TileEntityStirlingGenerator;
-import ic2.core.block.generator.tileentity.TileEntityWaterGenerator;
-import ic2.core.block.generator.tileentity.TileEntityWindGenerator;
+import ic2.core.block.generator.tileentity.*;
+import ic2.core.block.generator.tileentity.solar.*;
 import ic2.core.block.heatgenerator.tileentity.TileEntityElectricHeatGenerator;
 import ic2.core.block.heatgenerator.tileentity.TileEntityFluidHeatGenerator;
 import ic2.core.block.heatgenerator.tileentity.TileEntityRTHeatGenerator;
@@ -95,7 +87,18 @@ public enum TeBlock implements ITeBlock, ITeBlock.ITeBlockCreativeRegisterer {
     kinetic_generator(TileEntityKineticGenerator.class, 5, true, Util.allFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
     rt_generator(TileEntityRTGenerator.class, 6, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
     semifluid_generator(TileEntitySemifluidGenerator.class, 7, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
-    solar_generator(TileEntitySolarGenerator.class, 8, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+
+    solar_tier1(TileEntitySolarTier1.class, 150, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier2(TileEntitySolarTier2.class, 151, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier3(TileEntitySolarTier3.class, 152, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier4(TileEntitySolarTier4.class, 153, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier5(TileEntitySolarTier5.class, 154, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier6(TileEntitySolarTier6.class, 155, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier7(TileEntitySolarTier7.class, 156, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier8(TileEntitySolarTier8.class, 157, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier9(TileEntitySolarTier9.class, 158, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_tier10(TileEntitySolarTier10.class, 159, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+
     stirling_generator(TileEntityStirlingGenerator.class, 9, true, Util.allFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
     water_generator(TileEntityWaterGenerator.class, 10, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Self, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
     wind_generator(TileEntityWindGenerator.class, 11, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Generator, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),

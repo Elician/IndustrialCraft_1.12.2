@@ -18,9 +18,12 @@ import ic2.core.block.invslot.InvSlotCharge;
 import ic2.core.gui.dynamic.DynamicContainer;
 import ic2.core.gui.dynamic.DynamicGui;
 import ic2.core.gui.dynamic.GuiParser;
+import ic2.core.init.Localization;
 import ic2.core.network.GuiSynced;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -28,9 +31,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public abstract class TileEntityBaseGenerator extends TileEntityInventory implements IEnergyProvider, IHasGui {
     public final InvSlotCharge chargeSlot;
-    protected final Energy energy;
+    public final Energy energy;
     @GuiSynced
     public int fuel = 0;
     protected double production;
@@ -41,7 +46,7 @@ public abstract class TileEntityBaseGenerator extends TileEntityInventory implem
     public TileEntityBaseGenerator(double production, int tier, int maxStorage) {
         this.production = production;
         this.ticksSinceLastActiveUpdate = IC2.random.nextInt(256);
-        this.chargeSlot = new InvSlotCharge(this, 1);
+        this.chargeSlot = new InvSlotCharge(this, tier);
         this.energy = this.addComponent(Energy.asBasicSource(this, maxStorage, tier).addManagedSlot(this.chargeSlot));
     }
 
