@@ -49,7 +49,7 @@ public abstract class ItemElectricTool extends ItemToolIC2 implements IEnergyCon
     }
 
     protected ItemElectricTool(ItemName name, int operationEnergyCost, HarvestLevel harvestLevel, Set<? extends IToolClass> toolClasses) {
-        this(name, 2.0F, -3.0F, operationEnergyCost, harvestLevel, toolClasses, new HashSet());
+        this(name, 2.0F, -3.0F, operationEnergyCost, harvestLevel, toolClasses, new HashSet<>());
     }
 
     private ItemElectricTool(ItemName name, float damage, float speed, int operationEnergyCost, HarvestLevel harvestLevel, Set<? extends IToolClass> toolClasses, Set<Block> mineableBlocks) {
@@ -90,7 +90,7 @@ public abstract class ItemElectricTool extends ItemToolIC2 implements IEnergyCon
     }
 
     public double getMaxCharge(ItemStack stack) {
-        return (double)this.maxCharge;
+        return this.maxCharge;
     }
 
     public int getTier(ItemStack stack) {
@@ -98,7 +98,7 @@ public abstract class ItemElectricTool extends ItemToolIC2 implements IEnergyCon
     }
 
     public double getTransferLimit(ItemStack stack) {
-        return (double)this.transferLimit;
+        return this.transferLimit;
     }
 
     public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase user) {
