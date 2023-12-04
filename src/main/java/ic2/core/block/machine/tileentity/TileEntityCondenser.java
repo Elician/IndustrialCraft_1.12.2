@@ -105,15 +105,15 @@ public class TileEntityCondenser extends TileEntityElectricMachine implements IH
   }
 
   private void work() {
-    if (this.outputTank.getCapacity() - this.outputTank.getFluidAmount() >= 100) {
-      if (this.progress >= 10000) {
-        this.outputTank.fillInternal(new FluidStack(FluidName.distilled_water.getInstance(), 50), true);
-        this.progress -= 10000;
+    if (this.outputTank.getCapacity() - this.outputTank.getFluidAmount() >= 25) {
+      if (this.progress >= 20000) {
+        this.outputTank.fillInternal(new FluidStack(FluidName.distilled_water.getInstance(), 25), true);
+        this.progress -= 20000;
       }
 
       if (this.inputTank.getFluidAmount() > 0) {
         byte vents = this.getVents();
-        int drain = 200 + vents * 100;
+        int drain = 200 + vents * 200;
         if (this.energy.useEnergy(vents * 2)) {
           this.progress += this.inputTank.drainInternal(drain, true).amount;
         }
