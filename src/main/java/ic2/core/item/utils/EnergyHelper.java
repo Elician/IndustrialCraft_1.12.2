@@ -6,6 +6,6 @@ import net.minecraft.item.ItemStack;
 public class EnergyHelper {
   public static boolean isEnergyContainerItem(ItemStack container) {
 
-    return !container.isEmpty() && container.getItem() instanceof IEnergyContainerItem;
+    return !container.isEmpty() && (container.getItem() instanceof IEnergyContainerItem);
   }
 }

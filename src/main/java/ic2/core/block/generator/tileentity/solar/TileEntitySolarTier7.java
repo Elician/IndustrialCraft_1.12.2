@@ -4,6 +4,6 @@ import ic2.core.block.generator.tileentity.TileEntityBaseSolarGenerator;
 
 public class TileEntitySolarTier7 extends TileEntityBaseSolarGenerator {
   public TileEntitySolarTier7() {
-    super(72000, 4);
+    super(60000, 4);
   }
 }

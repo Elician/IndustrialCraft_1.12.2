@@ -12,20 +12,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 @NotClassic
-public class ItemArmorEnergypack extends ItemArmorElectric implements IBatpack {
+public class ItemArmorEnergypack extends ItemArmorBatpackBase {
   public ItemArmorEnergypack(int capacity) {
-    super(ItemName.energy_pack, ArmorMaterial.LEATHER, "energypack", EntityEquipmentSlot.CHEST, capacity, 6000, 3);
-  }
-
-  public boolean canProvideEnergy(ItemStack stack) {
-    return true;
-  }
-
-  public double getDamageAbsorptionRatio() {
-    return 0.0;
-  }
-
-  public int getEnergyPerDamage() {
-    return 0;
+    super(ItemName.energy_pack, ArmorMaterial.LEATHER, "energypack", capacity, 6000, 3);
   }
 }

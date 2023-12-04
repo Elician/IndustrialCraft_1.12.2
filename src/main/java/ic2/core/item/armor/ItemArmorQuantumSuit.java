@@ -173,6 +173,9 @@ public class ItemArmorQuantumSuit extends ItemArmorElectric implements IJetpack,
   }
 
   public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+
+    super.onArmorTick(world, player, stack);
+
     NBTTagCompound nbtData = StackUtil.getOrCreateNbtData(stack);
     byte toggleTimer = nbtData.getByte("toggleTimer");
     boolean ret = false;

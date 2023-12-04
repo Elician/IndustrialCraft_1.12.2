@@ -50,6 +50,9 @@ public class ItemArmorJetpackAdvElectric extends ItemArmorElectric implements IB
     }
 
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+
+        super.onArmorTick(world, player, stack);
+
         NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
         byte toggleTimer = nbt.getByte("toggleTimer");
         if (IC2.keyboard.isModeSwitchKeyDown(player) && toggleTimer == 0) {

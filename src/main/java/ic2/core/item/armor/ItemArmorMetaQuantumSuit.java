@@ -18,6 +18,7 @@ import ic2.core.init.MainConfig;
 import ic2.core.item.ItemTinCan;
 import ic2.core.item.armor.batpack.IBatpack;
 import ic2.core.item.armor.jetpack.IJetpack;
+import ic2.core.item.utils.EnergyHelper;
 import ic2.core.ref.ItemName;
 import ic2.core.slot.ArmorSlot;
 import ic2.core.slot.SlotArmor;
@@ -183,6 +184,8 @@ public class ItemArmorMetaQuantumSuit extends ItemArmorElectric implements IBatp
 
   public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 
+    super.onArmorTick(world, player, stack);
+
     NBTTagCompound nbtData = StackUtil.getOrCreateNbtData(stack);
     byte toggleTimer = nbtData.getByte("toggleTimer");
     boolean ret = false;
@@ -198,8 +201,7 @@ public class ItemArmorMetaQuantumSuit extends ItemArmorElectric implements IBatp
 
             ItemStack stackArmor = player.inventory.armorInventory.get(col);
 
-            if (StackUtil.isEmpty(stackArmor)) continue;
-            if (!(stackArmor.getItem() instanceof IEnergyContainerItem)) continue;
+            if (!EnergyHelper.isEnergyContainerItem(stackArmor)) continue;
 
             IEnergyContainerItem item = (IEnergyContainerItem) stackArmor.getItem();
             int receive = item.receiveEnergy(stackArmor, (int) (chargeAmount * 50000), false);

@@ -10,20 +10,8 @@ import ic2.core.ref.ItemName;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
-public class ItemArmorBatpack extends ItemArmorElectric implements IBatpack {
+public class ItemArmorBatpack extends ItemArmorBatpackBase {
   public ItemArmorBatpack(int capacity) {
-    super(ItemName.batpack, ArmorMaterial.LEATHER, "batpack", EntityEquipmentSlot.CHEST, capacity, 512.0, 1);
-  }
-
-  public boolean canProvideEnergy(ItemStack stack) {
-    return true;
-  }
-
-  public double getDamageAbsorptionRatio() {
-    return 0.0;
-  }
-
-  public int getEnergyPerDamage() {
-    return 0;
+    super(ItemName.batpack, ArmorMaterial.LEATHER, "batpack", capacity, 512.0, 1);
   }
 }

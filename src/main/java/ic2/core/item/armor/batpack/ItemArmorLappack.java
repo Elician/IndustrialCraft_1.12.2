@@ -13,21 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemArmorLappack extends ItemArmorElectric implements IBatpack {
+public class ItemArmorLappack extends ItemArmorBatpackBase {
     public ItemArmorLappack(int capacity) {
-        super(ItemName.lappack, ArmorMaterial.LEATHER, "lappack", EntityEquipmentSlot.CHEST, capacity, 2500.0, 5);
-    }
-
-    public boolean canProvideEnergy(ItemStack stack) {
-        return true;
-    }
-
-    public double getDamageAbsorptionRatio() {
-        return 0.0;
-    }
-
-    public int getEnergyPerDamage() {
-        return 0;
+        super(ItemName.lappack, ArmorMaterial.LEATHER, "lappack", capacity, 2500.0, 5);
     }
 
     @SideOnly(Side.CLIENT)

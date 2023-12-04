@@ -16,6 +16,7 @@ import ic2.core.init.Localization;
 import ic2.core.item.BaseElectricItem;
 import ic2.core.item.ElectricItemManager;
 import ic2.core.item.IPseudoDamageItem;
+import ic2.core.item.armor.batpack.IBatpack;
 import ic2.core.item.utils.EnergyHelper;
 import ic2.core.ref.ItemName;
 import ic2.core.util.LogCategory;
@@ -83,15 +84,14 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
     return (int) energyCost;
   }
 
-
   @Override
-  public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean isSelected) {
+  public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 
-    if (!this.canProvideEnergy(stack)) return;
-    if (slot != EntityEquipmentSlot.CHEST.getSlotIndex()) return;
+    super.onArmorTick(world, player, stack);
+
+    if (!(stack.getItem() instanceof IBatpack)) return;
 
     Iterable<ItemStack> equipment;
-    EntityPlayer player = (EntityPlayer) entity;
 
     equipment = Iterables.concat(Arrays.asList(player.inventory.mainInventory, player.inventory.armorInventory, player.inventory.offHandInventory));
 
@@ -99,10 +99,17 @@ public abstract class ItemArmorElectric extends ItemArmorIC2 implements IEnergyC
       if (equipmentStack.equals(stack)) {
         continue;
       }
+
       if (EnergyHelper.isEnergyContainerItem(equipmentStack)) {
-        extractEnergy(stack, ((IEnergyContainerItem) equipmentStack.getItem()).receiveEnergy(equipmentStack, getEnergyStored(stack), false), false);
+        extractEnergy(
+            stack,
+            ((IEnergyContainerItem) equipmentStack.getItem())
+                .receiveEnergy(equipmentStack, getEnergyStored(stack), false),
+            false
+        );
       }
     }
+
   }
 
   @Override

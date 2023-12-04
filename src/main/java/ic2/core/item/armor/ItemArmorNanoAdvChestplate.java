@@ -2,13 +2,14 @@ package ic2.core.item.armor;
 
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IC2Items;
+import ic2.core.item.armor.batpack.IBatpack;
 import ic2.core.ref.ItemName;
 import ic2.core.util.StackUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemArmorNanoAdvChestplate extends ItemArmorJetpackAdvElectric {
+public class ItemArmorNanoAdvChestplate extends ItemArmorJetpackAdvElectric implements IBatpack {
     protected static final ItemStack WATER_CELL = IC2Items.getItem("fluid_cell", "water");
     protected static final ItemStack EMPTY_CELL = IC2Items.getItem("fluid_cell");
     protected byte ticker;
