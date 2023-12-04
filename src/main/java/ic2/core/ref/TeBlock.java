@@ -123,7 +123,11 @@ public enum TeBlock implements ITeBlock, ITeBlock.ITeBlockCreativeRegisterer {
     fluid_regulator(TileEntityFluidRegulator.class, 30, true, Util.allFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Machine, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
     liquid_heat_exchanger(TileEntityLiquidHeatExchanger.class, 31, true, Util.allFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Machine, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
     pump(TileEntityPump.class, 32, true, Util.allFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Machine, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+
     solar_distiller(TileEntitySolarDestiller.class, 33, false, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Machine, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
+    solar_distiller_advanced(TileEntitySolarDestillerAdvanced.class, 170, false, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Machine, 2.0F, 10.0F, EnumRarity.UNCOMMON, IC2Material.MACHINE, false),
+    solar_distiller_meta(TileEntitySolarDestillerMeta.class, 171, false, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Machine, 2.0F, 10.0F, EnumRarity.EPIC, IC2Material.MACHINE, false),
+
     steam_generator(TileEntitySteamGenerator.class, 34, true, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Self, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
     item_buffer(TileEntityItemBuffer.class, 35, false, Util.horizontalFacings, true, TeBlock.HarvestTool.Wrench, TeBlock.DefaultDrop.Machine, 2.0F, 10.0F, EnumRarity.COMMON, IC2Material.MACHINE, false),
     luminator_flat(TileEntityLuminator.class, 36, true, Util.allFacings, false, TeBlock.HarvestTool.Pickaxe, TeBlock.DefaultDrop.Self, 5.0F, 10.0F, EnumRarity.COMMON),

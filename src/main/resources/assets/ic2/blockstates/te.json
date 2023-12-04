@@ -97,7 +97,11 @@
       "liquid_heat_exchanger_active": { "model": "ic2:machine/fluid/liquid_heat_exchanger_active" },
       "pump": { "model": "ic2:machine/fluid/pump" },
       "pump_active": { "model": "ic2:machine/fluid/pump_active" },
+
       "solar_distiller": { "model": "ic2:machine/fluid/solar_distiller" },
+      "solar_distiller_advanced": { "model": "ic2:machine/fluid/solar_distiller_advanced" },
+      "solar_distiller_meta": { "model": "ic2:machine/fluid/solar_distiller_meta" },
+
       "steam_generator": { "model": "ic2:machine/fluid/steam_generator" },
       "steam_generator_active": { "model": "ic2:machine/fluid/steam_generator_active" },
 
